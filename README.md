@@ -17,6 +17,14 @@ Interaktywny kalkulator przestępstw - dowiedz się jakie czyny musisz popełni�
 - **TypeScript** - typowanie
 - **Cloudflare Pages** - hosting
 
+## 📝 Uwagi dotyczące konfiguracji
+
+Projekt używa dwóch konfiguracji Astro:
+- `astro.config.dev.mjs` - dla rozwoju lokalnego (bez adaptera Cloudflare)
+- `astro.config.mjs` - dla produkcji (z adapterem Cloudflare)
+
+To rozwiązanie eliminuje błędy podczas lokalnego developmentu związane z adapterem Cloudflare.
+
 ## 📦 Instalacja
 
 ```bash

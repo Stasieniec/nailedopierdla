@@ -1,16 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
-// Production config for Cloudflare Pages
+// Development config without Cloudflare adapter
 // https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare({
-    mode: 'directory'
-  }),
-
   vite: {
     plugins: [tailwindcss()]
   }
