@@ -3,10 +3,10 @@ import '../styles/global.css';
 
 // SEO Configuration
 const siteTitle = "Na ile do pierdla? - Kalkulator Kar Więzienia";
-const siteDescription = "Interaktywny kalkulator przestępstw. Dowiedz się jakie czyny musisz popełnić, aby trafić do więzienia na wybrany okres czasu. Edukacyjne narzędzie z informacjami o karach prawnych.";
+const siteDescription = "Interaktywny kalkulator oparty na polskim prawie karnym (KK i KW). Sprawdź jakie przestępstwa gwarantują wybrany okres w więzieniu. Bazuje na rzeczywistych przepisach i karach.";
 const siteUrl = "https://nailedopierdla.pages.dev"; // Update with your actual domain
 const siteImage = `${siteUrl}/og-image.jpg`; // We'll create this
-const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkulator kar, ile za przestępstwo, kara pozbawienia wolności, pierdla, więzienie";
+const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks karny, KK, KW, ile za przestępstwo, kara pozbawienia wolności, pierdla, więzienie, polskie prawo";
 ---
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkula
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Na ile do pierdla?",
-      "description": "Kalkulator przestępstw - edukacyjne narzędzie do poznania kar za różne przestępstwa",
+      "description": "Kalkulator przestępstw oparty na polskim Kodeksie Karnym (KK) i Kodeksie Wykroczeń (KW). Oblicz wymagane przestępstwa dla wybranego okresu więzienia.",
       "url": "https://nailedopierdla.pages.dev",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Any",
@@ -83,7 +83,7 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkula
         "@type": "Audience",
         "audienceType": "Educational"
       },
-      "keywords": "kalkulator przestępstw, kary więzienia, prawo karne"
+      "keywords": "kalkulator przestępstw, kary więzienia, prawo karne, kodeks karny, KK, KW"
     }
     </script>
 </head>
@@ -148,38 +148,54 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkula
 
             <!-- Disclaimer -->
             <footer class="mt-8 text-center text-gray-400 text-sm">
-                <p>Informacje mają charakter wyłącznie informacyjny i nie stanowią porady prawnej.</p>
+                <p>Kary oparte o polski Kodeks Karny (KK) i Kodeks Wykroczeń (KW).</p>
+                <p class="mt-1">Informacje mają charakter wyłącznie informacyjny i nie stanowią porady prawnej.</p>
             </footer>
         </div>
     </div>
 
     <script>
-        // Crime database with penalties in months
-        const crimes = [
-            { name: "Kradzież sklepowa (drobna)", months: 1, emoji: "🛒" },
-            { name: "Zakłócanie spokoju", months: 1, emoji: "📢" },
-            { name: "Wandalizm (graffiti)", months: 2, emoji: "🎨" },
-            { name: "Kradzież roweru", months: 3, emoji: "🚲" },
-            { name: "Jazdę po pijaku", months: 3, emoji: "🍺" },
-            { name: "Kradzież w sklepie (większa wartość)", months: 6, emoji: "🏪" },
-            { name: "Nielegalne posiadanie substancji", months: 6, emoji: "💊" },
-            { name: "Zniszczenie mienia publicznego", months: 8, emoji: "🔨" },
-            { name: "Kradzież z włamaniem do auta", months: 12, emoji: "🚗" },
-            { name: "Oszustwo finansowe (małe)", months: 12, emoji: "💳" },
-            { name: "Posiadanie nielegalnej broni", months: 18, emoji: "🔫" },
-            { name: "Kradzież z włamaniem do domu", months: 24, emoji: "🏠" },
-            { name: "Handel narkotykami (mały)", months: 24, emoji: "💉" },
-            { name: "Pobicie ze skutkiem lekkim", months: 18, emoji: "🤜" },
-            { name: "Oszustwo finansowe (średnie)", months: 30, emoji: "💰" },
-            { name: "Handel kradzionym towarem", months: 24, emoji: "📦" },
-            { name: "Kradzież samochodu", months: 36, emoji: "🚙" },
-            { name: "Napad rabunkowy (bez broni)", months: 48, emoji: "👺" },
-            { name: "Handel narkotykami (średni)", months: 48, emoji: "💊" },
-            { name: "Oszustwo finansowe (duże)", months: 60, emoji: "🏦" },
-            { name: "Pobicie ciężkie", months: 48, emoji: "⚔️" },
-            { name: "Napad z bronią", months: 72, emoji: "🔫" },
-            { name: "Porwanie", months: 96, emoji: "🚨" },
-            { name: "Handel ludźmi", months: 120, emoji: "⛓️" }
+        // Crime database based on actual Polish law
+        const offencesPL = [
+            // WYKROCZENIA (KW) – minor offenses with arrests in days
+            { name: "Kradzież do 800 zł (wykroczenie)", law: "KW", basis: "art. 119 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🛒" },
+            { name: "Zakłócanie spokoju / porządku publicznego", law: "KW", basis: "art. 51", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "📢" },
+            { name: "Uszkodzenie lub zniszczenie mienia do 800 zł (wykroczenie)", law: "KW", basis: "art. 124 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🔨" },
+            { name: "Prowadzenie pojazdu w stanie po użyciu alkoholu (wykroczenie)", law: "KW", basis: "art. 87", penalty: "areszt albo grzywna (min. 2500 zł) + zakaz prowadzenia", minMonths: 0.5, maxMonths: 1, emoji: "🍺" },
+
+            // PRZESTĘPSTWA (KK) – crimes with prison time
+            { name: "Kradzież", law: "KK", basis: "art. 278 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🛒" },
+            { name: "Kradzież szczególnie zuchwała", law: "KK", basis: "art. 278 §3a", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🧤" },
+            { name: "Kradzież z włamaniem", law: "KK", basis: "art. 279 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🪟" },
+            { name: "Zabór pojazdu w celu krótkotrwałego użycia (tzw. joyriding)", law: "KK", basis: "art. 289 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚗" },
+
+            { name: "Zniszczenie cudzej rzeczy (np. graffiti jako szkoda)", law: "KK", basis: "art. 288 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🎨" },
+            { name: "Uszkodzenie podmorskiego kabla (tak, serio)", law: "KK", basis: "art. 288 §3", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🌊" },
+
+            { name: "Paserstwo (handel/ukrywanie rzeczy z przestępstwa)", law: "KK", basis: "art. 291 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📦" },
+            { name: "Oszustwo", law: "KK", basis: "art. 286 §1", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "💳" },
+            { name: "Fałszowanie dokumentu", law: "KK", basis: "art. 270 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📝" },
+
+            { name: "Groźba karalna", law: "KK", basis: "art. 190 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "☎️" },
+            { name: "Uporczywe nękanie / kradzież tożsamości", law: "KK", basis: "art. 190a §1–2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🕵️" },
+            { name: "Naruszenie miru domowego (wtargnięcie / nieopuszczenie terenu)", law: "KK", basis: "art. 193", penalty: "grzywna / ograniczenie / pozb. woln. do 1 roku", minMonths: 1, maxMonths: 12, emoji: "🏠" },
+
+            { name: "Znęcanie się", law: "KK", basis: "art. 207 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🧱" },
+
+            { name: "Pobicie / bójka (podstawowy typ)", law: "KK", basis: "art. 158 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🤜" },
+
+            { name: "Prowadzenie pojazdu w stanie nietrzeźwości (przestępstwo)", law: "KK", basis: "art. 178a §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🍺" },
+            { name: "Nielegalne posiadanie broni palnej lub amunicji", law: "KK", basis: "art. 263 §2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🔫" },
+
+            // WOLNOŚĆ / "porwania"
+            { name: "Bezprawne pozbawienie wolności", law: "KK", basis: "art. 189 §1", penalty: "pozb. woln. 3 mies. – 5 lat (dłużej niż 7 dni: 1 – 10 lat)", minMonths: 3, maxMonths: 120, emoji: "🚪" },
+            { name: "Handel ludźmi", law: "KK", basis: "art. 189a §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "⛓️" },
+            { name: "Wzięcie zakładnika", law: "KK", basis: "art. 252 §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "🚨" },
+
+            // ABSURDALNE, ALE PRAWDZIWE
+            { name: "Złośliwe przeszkadzanie pogrzebowi / obrzędom", law: "KK", basis: "art. 195", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⚰️" },
+            { name: "Znieważenie pomnika lub miejsca pamięci", law: "KK", basis: "art. 261", penalty: "grzywna / ograniczenie wolności", minMonths: 0.5, maxMonths: 2, emoji: "🗿" },
+            { name: "Obraza uczuć religijnych", law: "KK", basis: "art. 196", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⛪" },
         ];
 
         function formatTime(months: number): string {
@@ -197,29 +213,49 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkula
         }
 
         function calculateCrimes(targetMonths: number) {
-            const result: Array<{crime: typeof crimes[0], count: number}> = [];
+            const result: Array<{crime: typeof offencesPL[0], count: number, totalMonths: number}> = [];
             let remainingMonths = targetMonths;
             
-            // Sort crimes by months (descending) to use greedy algorithm
-            const sortedCrimes = [...crimes].sort((a, b) => b.months - a.months);
+            // Sort crimes by average sentence (descending) to use greedy algorithm
+            const sortedCrimes = [...offencesPL].sort((a, b) => {
+                const avgA = (a.minMonths + a.maxMonths) / 2;
+                const avgB = (b.minMonths + b.maxMonths) / 2;
+                return avgB - avgA;
+            });
             
             // Try to find a combination that gets close to the target
             for (const crime of sortedCrimes) {
                 if (remainingMonths <= 0) break;
                 
-                const count = Math.floor(remainingMonths / crime.months);
+                // Use average sentence for calculation
+                const avgSentence = (crime.minMonths + crime.maxMonths) / 2;
+                const count = Math.floor(remainingMonths / avgSentence);
+                
                 if (count > 0) {
-                    result.push({ crime, count });
-                    remainingMonths -= count * crime.months;
+                    const totalForThisCrime = count * avgSentence;
+                    result.push({ 
+                        crime, 
+                        count, 
+                        totalMonths: totalForThisCrime 
+                    });
+                    remainingMonths -= totalForThisCrime;
                 }
             }
             
             // If there's still remaining time, add smallest crimes
-            if (remainingMonths > 0) {
-                const smallestCrime = crimes.reduce((min, crime) => 
-                    crime.months < min.months ? crime : min
-                );
-                result.push({ crime: smallestCrime, count: Math.ceil(remainingMonths / smallestCrime.months) });
+            if (remainingMonths > 0 && result.length > 0) {
+                const smallestCrime = offencesPL.reduce((min, crime) => {
+                    const avgMin = (min.minMonths + min.maxMonths) / 2;
+                    const avgCrime = (crime.minMonths + crime.maxMonths) / 2;
+                    return avgCrime < avgMin ? crime : min;
+                });
+                const avgSentence = (smallestCrime.minMonths + smallestCrime.maxMonths) / 2;
+                const additionalCount = Math.ceil(remainingMonths / avgSentence);
+                result.push({ 
+                    crime: smallestCrime, 
+                    count: additionalCount, 
+                    totalMonths: additionalCount * avgSentence 
+                });
             }
             
             return result;
@@ -257,21 +293,25 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkula
                 crimeDiv.style.animationDelay = `${index * 0.1}s`;
                 crimeDiv.setAttribute('role', 'listitem');
                 
-                const totalMonths = item.crime.months * item.count;
+                const avgSentence = (item.crime.minMonths + item.crime.maxMonths) / 2;
+                const sentenceRange = `${formatTime(item.crime.minMonths)} – ${formatTime(item.crime.maxMonths)}`;
                 
                 crimeDiv.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-4">
-                            <span class="text-4xl" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
-                            <div>
-                                <h3 class="text-white font-semibold text-lg">${item.crime.name}</h3>
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4 flex-1">
+                            <span class="text-4xl flex-shrink-0" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-white font-semibold text-lg leading-tight">${item.crime.name}</h3>
                                 <p class="text-gray-400 text-sm mt-1">
-                                    ${item.count}× (${formatTime(item.crime.months)} każde)
+                                    ${item.count}× | Kara: ${sentenceRange}
+                                </p>
+                                <p class="text-gray-500 text-xs mt-0.5">
+                                    ${item.crime.law} ${item.crime.basis}
                                 </p>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <div class="text-orange-400 font-bold text-xl">${formatTime(totalMonths)}</div>
+                        <div class="text-right flex-shrink-0">
+                            <div class="text-orange-400 font-bold text-xl">${formatTime(Math.round(item.totalMonths))}</div>
                             <div class="text-gray-400 text-sm">razem</div>
                         </div>
                     </div>
