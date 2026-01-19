@@ -1,0 +1,281 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Na ile do pierdla?</title>
+    <meta name="description" content="Kalkulator przestępstw - dowiedz się ile przestępstw musisz popełnić, żeby trafić do więzienia na określony czas">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-4xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12 animate-fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl">
+                    Na ile do <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">pierdla</span>?
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Kalkulator przestępstw - dowiedz się jakie czyny musisz popełnić, aby trafić do więzienia na wybrany okres
+                </p>
+            </div>
+
+            <!-- Calculator Card -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
+                <!-- Time Slider Section -->
+                <div class="mb-8">
+                    <label class="block text-white text-xl font-semibold mb-4">
+                        Wybierz czas: <span id="time-display" class="text-orange-400">1 rok</span>
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="range" 
+                            id="time-slider" 
+                            min="1" 
+                            max="120" 
+                            value="12" 
+                            class="w-full h-3 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                        >
+                        <div class="flex justify-between text-sm text-gray-400 mt-2">
+                            <span>1 miesiąc</span>
+                            <span>10 lat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculate Button -->
+                <button 
+                    id="calculate-btn"
+                    class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-xl font-bold py-4 px-8 rounded-xl hover:from-orange-600 hover:to-red-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                    Oblicz przestępstwa
+                </button>
+
+                <!-- Results Section -->
+                <div id="results" class="mt-8 hidden">
+                    <div class="border-t border-white/20 pt-8">
+                        <h2 class="text-2xl font-bold text-white mb-6">
+                            Twoja ścieżka do <span class="text-orange-400" id="result-time"></span>:
+                        </h2>
+                        <div id="crimes-list" class="space-y-4">
+                            <!-- Crimes will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="mt-8 text-center text-gray-400 text-sm">
+                <p>⚠️ To tylko kalkulator edukacyjny. Nie popełniaj przestępstw!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crime database with penalties in months
+        const crimes = [
+            { name: "Kradzież sklepowa (drobna)", months: 1, emoji: "🛒" },
+            { name: "Zakłócanie spokoju", months: 1, emoji: "📢" },
+            { name: "Wandalizm (graffiti)", months: 2, emoji: "🎨" },
+            { name: "Kradzież roweru", months: 3, emoji: "🚲" },
+            { name: "Jazdę po pijaku", months: 3, emoji: "🍺" },
+            { name: "Kradzież w sklepie (większa wartość)", months: 6, emoji: "🏪" },
+            { name: "Nielegalne posiadanie substancji", months: 6, emoji: "💊" },
+            { name: "Zniszczenie mienia publicznego", months: 8, emoji: "🔨" },
+            { name: "Kradzież z włamaniem do auta", months: 12, emoji: "🚗" },
+            { name: "Oszustwo finansowe (małe)", months: 12, emoji: "💳" },
+            { name: "Posiadanie nielegalnej broni", months: 18, emoji: "🔫" },
+            { name: "Kradzież z włamaniem do domu", months: 24, emoji: "🏠" },
+            { name: "Handel narkotykami (mały)", months: 24, emoji: "💉" },
+            { name: "Pobicie ze skutkiem lekkim", months: 18, emoji: "🤜" },
+            { name: "Oszustwo finansowe (średnie)", months: 30, emoji: "💰" },
+            { name: "Handel kradzionym towarem", months: 24, emoji: "📦" },
+            { name: "Kradzież samochodu", months: 36, emoji: "🚙" },
+            { name: "Napad rabunkowy (bez broni)", months: 48, emoji: "👺" },
+            { name: "Handel narkotykami (średni)", months: 48, emoji: "💊" },
+            { name: "Oszustwo finansowe (duże)", months: 60, emoji: "🏦" },
+            { name: "Pobicie ciężkie", months: 48, emoji: "⚔️" },
+            { name: "Napad z bronią", months: 72, emoji: "🔫" },
+            { name: "Porwanie", months: 96, emoji: "🚨" },
+            { name: "Handel ludźmi", months: 120, emoji: "⛓️" }
+        ];
+
+        function formatTime(months: number): string {
+            if (months < 12) {
+                return months === 1 ? "1 miesiąc" : `${months} miesięcy`;
+            } else {
+                const years = Math.floor(months / 12);
+                const remainingMonths = months % 12;
+                if (remainingMonths === 0) {
+                    return years === 1 ? "1 rok" : `${years} lat`;
+                } else {
+                    return `${years} ${years === 1 ? 'rok' : 'lat'} i ${remainingMonths} ${remainingMonths === 1 ? 'miesiąc' : 'miesięcy'}`;
+                }
+            }
+        }
+
+        function calculateCrimes(targetMonths: number) {
+            const result: Array<{crime: typeof crimes[0], count: number}> = [];
+            let remainingMonths = targetMonths;
+            
+            // Sort crimes by months (descending) to use greedy algorithm
+            const sortedCrimes = [...crimes].sort((a, b) => b.months - a.months);
+            
+            // Try to find a combination that gets close to the target
+            for (const crime of sortedCrimes) {
+                if (remainingMonths <= 0) break;
+                
+                const count = Math.floor(remainingMonths / crime.months);
+                if (count > 0) {
+                    result.push({ crime, count });
+                    remainingMonths -= count * crime.months;
+                }
+            }
+            
+            // If there's still remaining time, add smallest crimes
+            if (remainingMonths > 0) {
+                const smallestCrime = crimes.reduce((min, crime) => 
+                    crime.months < min.months ? crime : min
+                );
+                result.push({ crime: smallestCrime, count: Math.ceil(remainingMonths / smallestCrime.months) });
+            }
+            
+            return result;
+        }
+
+        // Elements
+        const slider = document.getElementById('time-slider') as HTMLInputElement;
+        const timeDisplay = document.getElementById('time-display') as HTMLElement;
+        const calculateBtn = document.getElementById('calculate-btn') as HTMLButtonElement;
+        const resultsDiv = document.getElementById('results') as HTMLElement;
+        const resultTime = document.getElementById('result-time') as HTMLElement;
+        const crimesList = document.getElementById('crimes-list') as HTMLElement;
+
+        // Update display when slider moves
+        slider.addEventListener('input', () => {
+            const months = parseInt(slider.value);
+            timeDisplay.textContent = formatTime(months);
+        });
+
+        // Calculate on button click
+        calculateBtn.addEventListener('click', () => {
+            const months = parseInt(slider.value);
+            const crimeCombination = calculateCrimes(months);
+            
+            // Update result time
+            resultTime.textContent = formatTime(months);
+            
+            // Clear previous results
+            crimesList.innerHTML = '';
+            
+            // Add new results with animation
+            crimeCombination.forEach((item, index) => {
+                const crimeDiv = document.createElement('div');
+                crimeDiv.className = 'bg-white/5 backdrop-blur rounded-xl p-6 border border-white/10 transform transition-all hover:scale-102 hover:bg-white/10 animate-slide-in';
+                crimeDiv.style.animationDelay = `${index * 0.1}s`;
+                
+                const totalMonths = item.crime.months * item.count;
+                
+                crimeDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="text-4xl">${item.crime.emoji}</span>
+                            <div>
+                                <h3 class="text-white font-semibold text-lg">${item.crime.name}</h3>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    ${item.count}× (${formatTime(item.crime.months)} każde)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-orange-400 font-bold text-xl">${formatTime(totalMonths)}</div>
+                            <div class="text-gray-400 text-sm">razem</div>
+                        </div>
+                    </div>
+                `;
+                
+                crimesList.appendChild(crimeDiv);
+            });
+            
+            // Show results with animation
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.classList.add('animate-fade-in');
+        });
+
+        // Initialize display
+        timeDisplay.textContent = formatTime(parseInt(slider.value));
+    </script>
+
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.6s ease-out;
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.4s ease-out backwards;
+        }
+
+        /* Custom slider styling */
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #f97316, #dc2626);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.5);
+            transition: all 0.2s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.7);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #f97316, #dc2626);
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.5);
+            transition: all 0.2s;
+        }
+
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.7);
+        }
+
+        .hover\:scale-102:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</body>
+</html>
