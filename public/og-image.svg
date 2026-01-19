@@ -1,0 +1,45 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#581c87;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  
+  <!-- Prison bars effect -->
+  <g opacity="0.1">
+    <rect x="100" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="250" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="400" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="550" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="700" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="850" y="0" width="20" height="630" fill="#fff"/>
+    <rect x="1000" y="0" width="20" height="630" fill="#fff"/>
+  </g>
+  
+  <!-- Main text -->
+  <text x="600" y="240" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#fff" text-anchor="middle">
+    Na ile do
+  </text>
+  
+  <text x="600" y="350" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="url(#text-gradient)" text-anchor="middle">
+    pierdla?
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="450" font-family="Arial, sans-serif" font-size="36" fill="#d1d5db" text-anchor="middle">
+    Kalkulator Przestępstw
+  </text>
+  
+  <!-- Icon/Emoji -->
+  <text x="600" y="550" font-size="60" text-anchor="middle">🔒</text>
+</svg>

@@ -1,5 +1,12 @@
 ---
 import '../styles/global.css';
+
+// SEO Configuration
+const siteTitle = "Na ile do pierdla? - Kalkulator Kar Więzienia";
+const siteDescription = "Interaktywny kalkulator przestępstw. Dowiedz się jakie czyny musisz popełnić, aby trafić do więzienia na wybrany okres czasu. Edukacyjne narzędzie z informacjami o karach prawnych.";
+const siteUrl = "https://nailedopierdla.pages.dev"; // Update with your actual domain
+const siteImage = `${siteUrl}/og-image.jpg`; // We'll create this
+const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kalkulator kar, ile za przestępstwo, kara pozbawienia wolności, pierdla, więzienie";
 ---
 
 <!DOCTYPE html>
@@ -7,28 +14,98 @@ import '../styles/global.css';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Na ile do pierdla?</title>
-    <meta name="description" content="Kalkulator przestępstw - dowiedz się ile przestępstw musisz popełnić, żeby trafić do więzienia na określony czas">
+    
+    <!-- Primary Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle}>
+    <meta name="description" content={siteDescription}>
+    <meta name="keywords" content={keywords}>
+    <meta name="author" content="Na ile do pierdla">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Polish">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={siteUrl}>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={siteUrl}>
+    <meta property="og:title" content={siteTitle}>
+    <meta property="og:description" content={siteDescription}>
+    <meta property="og:image" content={siteImage}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:site_name" content="Na ile do pierdla?">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content={siteUrl}>
+    <meta name="twitter:title" content={siteTitle}>
+    <meta name="twitter:description" content={siteDescription}>
+    <meta name="twitter:image" content={siteImage}>
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Na ile do pierdla?">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Na ile do pierdla?",
+      "description": "Kalkulator przestępstw - edukacyjne narzędzie do poznania kar za różne przestępstwa",
+      "url": "https://nailedopierdla.pages.dev",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "inLanguage": "pl-PL",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Educational"
+      },
+      "keywords": "kalkulator przestępstw, kary więzienia, prawo karne"
+    }
+    </script>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-4xl w-full">
             <!-- Header -->
-            <div class="text-center mb-12 animate-fade-in">
+            <header class="text-center mb-12 animate-fade-in">
                 <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl">
                     Na ile do <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">pierdla</span>?
                 </h1>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
                     Kalkulator przestępstw - dowiedz się jakie czyny musisz popełnić, aby trafić do więzienia na wybrany okres
                 </p>
-            </div>
+            </header>
 
             <!-- Calculator Card -->
-            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
+            <main class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
                 <!-- Time Slider Section -->
-                <div class="mb-8">
-                    <label class="block text-white text-xl font-semibold mb-4">
-                        Wybierz czas: <span id="time-display" class="text-orange-400">1 rok</span>
+                <section class="mb-8" aria-label="Wybór czasu">
+                    <label for="time-slider" class="block text-white text-xl font-semibold mb-4">
+                        Wybierz czas: <span id="time-display" class="text-orange-400" aria-live="polite">1 rok</span>
                     </label>
                     <div class="relative">
                         <input 
@@ -38,39 +115,42 @@ import '../styles/global.css';
                             max="120" 
                             value="12" 
                             class="w-full h-3 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+                            aria-label="Suwak wyboru czasu więzienia"
                         >
                         <div class="flex justify-between text-sm text-gray-400 mt-2">
                             <span>1 miesiąc</span>
                             <span>10 lat</span>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!-- Calculate Button -->
                 <button 
                     id="calculate-btn"
-                    class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-xl font-bold py-4 px-8 rounded-xl hover:from-orange-600 hover:to-red-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white text-xl font-bold py-4 px-8 rounded-xl hover:from-orange-600 hover:to-red-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-500/50"
+                    aria-label="Oblicz kombinację przestępstw"
                 >
                     Oblicz przestępstwa
                 </button>
 
                 <!-- Results Section -->
-                <div id="results" class="mt-8 hidden">
+                <section id="results" class="mt-8 hidden" aria-label="Wyniki kalkulacji">
                     <div class="border-t border-white/20 pt-8">
                         <h2 class="text-2xl font-bold text-white mb-6">
                             Twoja ścieżka do <span class="text-orange-400" id="result-time"></span>:
                         </h2>
-                        <div id="crimes-list" class="space-y-4">
+                        <div id="crimes-list" class="space-y-4" role="list">
                             <!-- Crimes will be inserted here -->
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
 
             <!-- Disclaimer -->
-            <div class="mt-8 text-center text-gray-400 text-sm">
+            <footer class="mt-8 text-center text-gray-400 text-sm">
                 <p>⚠️ To tylko kalkulator edukacyjny. Nie popełniaj przestępstw!</p>
-            </div>
+                <p class="mt-2">Informacje mają charakter wyłącznie informacyjny i nie stanowią porady prawnej.</p>
+            </footer>
         </div>
     </div>
 
@@ -176,13 +256,14 @@ import '../styles/global.css';
                 const crimeDiv = document.createElement('div');
                 crimeDiv.className = 'bg-white/5 backdrop-blur rounded-xl p-6 border border-white/10 transform transition-all hover:scale-102 hover:bg-white/10 animate-slide-in';
                 crimeDiv.style.animationDelay = `${index * 0.1}s`;
+                crimeDiv.setAttribute('role', 'listitem');
                 
                 const totalMonths = item.crime.months * item.count;
                 
                 crimeDiv.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-4">
-                            <span class="text-4xl">${item.crime.emoji}</span>
+                            <span class="text-4xl" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
                             <div>
                                 <h3 class="text-white font-semibold text-lg">${item.crime.name}</h3>
                                 <p class="text-gray-400 text-sm mt-1">
@@ -203,6 +284,9 @@ import '../styles/global.css';
             // Show results with animation
             resultsDiv.classList.remove('hidden');
             resultsDiv.classList.add('animate-fade-in');
+            
+            // Scroll to results smoothly
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
         // Initialize display

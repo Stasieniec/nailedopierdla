@@ -9,6 +9,9 @@ Interaktywny kalkulator przestępstw - dowiedz się jakie czyny musisz popełni�
 - **Nowoczesny design** - gradient tła, animacje, efekty hover
 - **Responsywność** - działa na wszystkich urządzeniach
 - **Optymalizacja** - zbudowane na Astro dla maksymalnej wydajności
+- **SEO-friendly** - pełna optymalizacja dla wyszukiwarek
+- **PWA Ready** - może działać jako aplikacja webowa
+- **Accessibility** - dostępne dla wszystkich użytkowników
 
 ## 🛠️ Technologie
 
@@ -16,6 +19,8 @@ Interaktywny kalkulator przestępstw - dowiedz się jakie czyny musisz popełni�
 - **Tailwind CSS v4** - stylowanie
 - **TypeScript** - typowanie
 - **Cloudflare Pages** - hosting
+- **@astrojs/sitemap** - automatyczne generowanie sitemap
+- **Schema.org** - strukturalne dane dla SEO
 
 ## 📝 Uwagi dotyczące konfiguracji
 
@@ -24,6 +29,36 @@ Projekt używa dwóch konfiguracji Astro:
 - `astro.config.mjs` - dla produkcji (z adapterem Cloudflare)
 
 To rozwiązanie eliminuje błędy podczas lokalnego developmentu związane z adapterem Cloudflare.
+
+## 🔍 SEO & Optymalizacja
+
+Strona jest w pełni zoptymalizowana pod SEO:
+
+- ✅ **Meta tags** - tytuł, opis, słowa kluczowe
+- ✅ **Open Graph** - optymalizacja dla social media
+- ✅ **Twitter Cards** - ładne podglądy na Twitterze
+- ✅ **Structured Data** - JSON-LD dla lepszego indeksowania
+- ✅ **Sitemap.xml** - automatycznie generowany
+- ✅ **Robots.txt** - konfiguracja dla robotów
+- ✅ **Security Headers** - nagłówki bezpieczeństwa
+- ✅ **Performance** - optymalizacja szybkości
+- ✅ **Accessibility** - dostępność dla wszystkich
+- ✅ **404 Page** - przyjazna strona błędu
+
+### 📚 Dokumentacja SEO
+
+- **`SEO-GUIDE.md`** - Kompletny przewodnik SEO
+- **`SEO-CHECKLIST.md`** - Checklist do wdrożenia
+- **`DEPLOYMENT.md`** - Instrukcje deploymentu
+
+### 🎯 Po deploymencie
+
+1. Zaktualizuj URL w plikach konfiguracyjnych
+2. Stwórz obrazki social media (og-image.jpg)
+3. Wyślij stronę do Google Search Console
+4. Wyślij stronę do Bing Webmaster Tools
+5. Przetestuj meta tagi (Open Graph, Twitter Cards)
+6. Sprawdź wydajność (PageSpeed Insights)
 
 ## 📦 Instalacja
 

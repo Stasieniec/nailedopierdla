@@ -1,6 +1,42 @@
 /*
+  # Security Headers
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # Performance Headers
+  Cache-Control: public, max-age=3600, must-revalidate
+  
+  # SEO Headers
+  X-Robots-Tag: index, follow
+
+# Static assets - long cache
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - long cache
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML - shorter cache
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+  
+# Manifest and service worker
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json
+
+# Sitemap
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml
