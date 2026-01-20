@@ -107,19 +107,60 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
                     <label for="time-slider" class="block text-slate-800 text-lg sm:text-xl font-semibold mb-4">
                         Wybierz czas: <span id="time-display" class="text-blue-600" aria-live="polite">1 rok</span>
                     </label>
+                    
+                    <!-- Manual Input Section -->
+                    <div class="mb-4 flex flex-col sm:flex-row gap-3">
+                        <div class="flex-1">
+                            <label for="time-input" class="block text-slate-700 text-sm font-medium mb-2">Precyzyjny wybór:</label>
+                            <div class="flex gap-2">
+                                <input 
+                                    type="number" 
+                                    id="time-input" 
+                                    min="1" 
+                                    max="300" 
+                                    value="12"
+                                    class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-800"
+                                    aria-label="Wprowadź liczbę"
+                                >
+                                <select 
+                                    id="time-unit" 
+                                    class="px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-800 bg-white"
+                                    aria-label="Wybierz jednostkę czasu"
+                                >
+                                    <option value="days">dni</option>
+                                    <option value="months" selected>miesięcy</option>
+                                    <option value="years">lat</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 transition-colors">
+                                <input 
+                                    type="checkbox" 
+                                    id="life-sentence" 
+                                    class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-600"
+                                    aria-label="Dożywocie"
+                                >
+                                <span class="text-slate-800 font-medium">Dożywocie</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Slider -->
                     <div class="relative">
                         <input 
                             type="range" 
                             id="time-slider" 
-                            min="1" 
-                            max="120" 
+                            min="0.033" 
+                            max="300" 
+                            step="0.033"
                             value="12" 
                             class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer slider touch-manipulation"
                             aria-label="Suwak wyboru czasu więzienia"
                         >
                         <div class="flex justify-between text-xs sm:text-sm text-slate-500 mt-2">
-                            <span>1 miesiąc</span>
-                            <span>10 lat</span>
+                            <span>1 dzień</span>
+                            <span>25 lat</span>
                         </div>
                     </div>
                 </section>
@@ -158,52 +199,72 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
         // Crime database based on actual Polish law
         const offencesPL = [
             // WYKROCZENIA (KW) – minor offenses with arrests in days
+            { name: "Niszczenie lub uszkadzanie drzew/krzewów (wykroczenie)", law: "KW", basis: "art. 162", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🌳" },
+            { name: "Niszczenie lub uszkadzanie urządzeń użytku publicznego", law: "KW", basis: "art. 124a", penalty: "areszt do 30 dni / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🚏" },
             { name: "Kradzież do 800 zł (wykroczenie)", law: "KW", basis: "art. 119 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🛒" },
             { name: "Zakłócanie spokoju / porządku publicznego", law: "KW", basis: "art. 51", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "📢" },
             { name: "Uszkodzenie lub zniszczenie mienia do 800 zł (wykroczenie)", law: "KW", basis: "art. 124 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🔨" },
             { name: "Prowadzenie pojazdu w stanie po użyciu alkoholu (wykroczenie)", law: "KW", basis: "art. 87", penalty: "areszt albo grzywna (min. 2500 zł) + zakaz prowadzenia", minMonths: 0.5, maxMonths: 1, emoji: "🍺" },
+            { name: "Nielegalne przekraczanie granicy (wykroczenie)", law: "KW", basis: "art. 49", penalty: "areszt / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🚧" },
+            { name: "Zakłócanie porządku w miejscach publicznych", law: "KW", basis: "art. 141", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🎭" },
 
-            // PRZESTĘPSTWA (KK) – crimes with prison time
-            { name: "Kradzież", law: "KK", basis: "art. 278 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🛒" },
-            { name: "Kradzież szczególnie zuchwała", law: "KK", basis: "art. 278 §3a", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🧤" },
-            { name: "Kradzież z włamaniem", law: "KK", basis: "art. 279 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🪟" },
-            { name: "Zabór pojazdu w celu krótkotrwałego użycia (tzw. joyriding)", law: "KK", basis: "art. 289 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚗" },
-
-            { name: "Zniszczenie cudzej rzeczy (np. graffiti jako szkoda)", law: "KK", basis: "art. 288 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🎨" },
-            { name: "Uszkodzenie podmorskiego kabla (tak, serio)", law: "KK", basis: "art. 288 §3", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🌊" },
-
-            { name: "Paserstwo (handel/ukrywanie rzeczy z przestępstwa)", law: "KK", basis: "art. 291 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📦" },
-            { name: "Oszustwo", law: "KK", basis: "art. 286 §1", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "💳" },
-            { name: "Fałszowanie dokumentu", law: "KK", basis: "art. 270 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📝" },
-
+            // PRZESTĘPSTWA KRÓTKOTERMINOWE (do 2 lat)
             { name: "Groźba karalna", law: "KK", basis: "art. 190 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "☎️" },
-            { name: "Uporczywe nękanie / kradzież tożsamości", law: "KK", basis: "art. 190a §1–2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🕵️" },
             { name: "Naruszenie miru domowego (wtargnięcie / nieopuszczenie terenu)", law: "KK", basis: "art. 193", penalty: "grzywna / ograniczenie / pozb. woln. do 1 roku", minMonths: 1, maxMonths: 12, emoji: "🏠" },
-
-            { name: "Znęcanie się", law: "KK", basis: "art. 207 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🧱" },
-
-            { name: "Pobicie / bójka (podstawowy typ)", law: "KK", basis: "art. 158 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🤜" },
-
-            { name: "Prowadzenie pojazdu w stanie nietrzeźwości (przestępstwo)", law: "KK", basis: "art. 178a §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🍺" },
-            { name: "Nielegalne posiadanie broni palnej lub amunicji", law: "KK", basis: "art. 263 §2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🔫" },
-
-            // WOLNOŚĆ / "porwania"
-            { name: "Bezprawne pozbawienie wolności", law: "KK", basis: "art. 189 §1", penalty: "pozb. woln. 3 mies. – 5 lat (dłużej niż 7 dni: 1 – 10 lat)", minMonths: 3, maxMonths: 120, emoji: "🚪" },
-            { name: "Handel ludźmi", law: "KK", basis: "art. 189a §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "⛓️" },
-            { name: "Wzięcie zakładnika", law: "KK", basis: "art. 252 §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "🚨" },
-
-            // ABSURDALNE, ALE PRAWDZIWE
             { name: "Złośliwe przeszkadzanie pogrzebowi / obrzędom", law: "KK", basis: "art. 195", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⚰️" },
             { name: "Znieważenie pomnika lub miejsca pamięci", law: "KK", basis: "art. 261", penalty: "grzywna / ograniczenie wolności", minMonths: 0.5, maxMonths: 2, emoji: "🗿" },
             { name: "Obraza uczuć religijnych", law: "KK", basis: "art. 196", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⛪" },
+            { name: "Nielegalne udostępnianie danych osobowych", law: "KK", basis: "art. 267a", penalty: "pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "📱" },
+
+            // PRZESTĘPSTWA ŚREDNIOTERMINOWE (3 mies. – 5 lat)
+            { name: "Kradzież", law: "KK", basis: "art. 278 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🛒" },
+            { name: "Zabór pojazdu w celu krótkotrwałego użycia (tzw. joyriding)", law: "KK", basis: "art. 289 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚗" },
+            { name: "Zniszczenie cudzej rzeczy (np. graffiti jako szkoda)", law: "KK", basis: "art. 288 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🎨" },
+            { name: "Paserstwo (handel/ukrywanie rzeczy z przestępstwa)", law: "KK", basis: "art. 291 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📦" },
+            { name: "Fałszowanie dokumentu", law: "KK", basis: "art. 270 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📝" },
+            { name: "Znęcanie się", law: "KK", basis: "art. 207 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🧱" },
+            { name: "Pobicie / bójka (podstawowy typ)", law: "KK", basis: "art. 158 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🤜" },
+            { name: "Prowadzenie pojazdu w stanie nietrzeźwości (przestępstwo)", law: "KK", basis: "art. 178a §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🍺" },
+            { name: "Bezprawne pozbawienie wolności (podstawowy)", law: "KK", basis: "art. 189 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚪" },
+
+            // PRZESTĘPSTWA ŚREDNIO-POWAŻNE (6 mies. – 8/10 lat)
+            { name: "Kradzież szczególnie zuchwała", law: "KK", basis: "art. 278 §3a", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🧤" },
+            { name: "Oszustwo", law: "KK", basis: "art. 286 §1", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "💳" },
+            { name: "Uporczywe nękanie / kradzież tożsamości", law: "KK", basis: "art. 190a §1–2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🕵️" },
+            { name: "Nielegalne posiadanie broni palnej lub amunicji", law: "KK", basis: "art. 263 §2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🔫" },
+            { name: "Kradzież z włamaniem", law: "KK", basis: "art. 279 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🪟" },
+            { name: "Uszkodzenie podmorskiego kabla (tak, serio)", law: "KK", basis: "art. 288 §3", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🌊" },
+            { name: "Bezprawne pozbawienie wolności dłużej niż 7 dni", law: "KK", basis: "art. 189 §2", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "⛓️" },
+            { name: "Zgwałcenie", law: "KK", basis: "art. 197 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "🚫" },
+            { name: "Udział w zorganizowanej grupie przestępczej", law: "KK", basis: "art. 258 §1", penalty: "pozb. woln. 3 mies. – 5 lat (w zw. z innymi: do 15 lat)", minMonths: 3, maxMonths: 180, emoji: "👥" },
+
+            // PRZESTĘPSTWA POWAŻNE (2-15 lat)
+            { name: "Spowodowanie ciężkiego uszczerbku na zdrowiu", law: "KK", basis: "art. 156 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🏥" },
+            { name: "Rozbój (napad z użyciem przemocy)", law: "KK", basis: "art. 280 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "💰" },
+            { name: "Wymuszenie rozbójnicze", law: "KK", basis: "art. 282", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🔪" },
+            { name: "Porwanie dla okupu", law: "KK", basis: "art. 252 §2", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "💵" },
+            { name: "Produkcja lub handel znacznymi ilościami narkotyków", law: "KK", basis: "art. 63 ustawy o przeciwdziałaniu narkomanii", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "💊" },
+
+            // PRZESTĘPSTWA BARDZO POWAŻNE (3-25 lat)
+            { name: "Zabójstwo", law: "KK", basis: "art. 148 §1", penalty: "pozb. woln. 8 – 15 lat / 25 lat / dożywocie", minMonths: 96, maxMonths: 300, emoji: "☠️" },
+            { name: "Zabójstwo ze szczególnym okrucieństwem", law: "KK", basis: "art. 148 §2", penalty: "pozb. woln. 12 – 25 lat / dożywocie", minMonths: 144, maxMonths: 300, emoji: "🔴" },
+            { name: "Handel ludźmi", law: "KK", basis: "art. 189a §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "⛓️" },
+            { name: "Wzięcie zakładnika", law: "KK", basis: "art. 252 §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "🚨" },
+            { name: "Spowodowanie katastrofy w ruchu lądowym ze skutkiem śmiertelnym", law: "KK", basis: "art. 173 §4", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "🚂" },
+            { name: "Terroryzm", law: "KK", basis: "art. 115 §20 + 148", penalty: "pozb. woln. do 25 lat / dożywocie", minMonths: 60, maxMonths: 300, emoji: "💣" },
+            { name: "Zdrada kraju", law: "KK", basis: "art. 127", penalty: "pozb. woln. 5 – 25 lat / dożywocie", minMonths: 60, maxMonths: 300, emoji: "🕵️‍♂️" },
         ];
 
         function formatTime(months: number): string {
-            if (months < 12) {
-                return months === 1 ? "1 miesiąc" : `${months} miesięcy`;
+            if (months < 1) {
+                const days = Math.round(months * 30);
+                return days === 1 ? "1 dzień" : `${days} dni`;
+            } else if (months < 12) {
+                const rounded = Math.round(months);
+                return rounded === 1 ? "1 miesiąc" : `${rounded} miesięcy`;
             } else {
                 const years = Math.floor(months / 12);
-                const remainingMonths = months % 12;
+                const remainingMonths = Math.round(months % 12);
                 if (remainingMonths === 0) {
                     return years === 1 ? "1 rok" : `${years} lat`;
                 } else {
@@ -212,49 +273,237 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
             }
         }
 
+        function getSeverityTip(targetMonths: number, minMonths: number, maxMonths: number): string {
+            const range = maxMonths - minMonths;
+            const position = (targetMonths - minMonths) / range;
+            
+            if (position < 0.25) {
+                return "💡 <strong>Niski wymiar kary:</strong> Czyn powinien być mniej poważny, sprawca skruszony, brak recydywy, okoliczności łagodzące (art. 53 KK).";
+            } else if (position < 0.45) {
+                return "💡 <strong>Poniżej średniej:</strong> Ograniczona szkodliwość społeczna, brak złego zamiaru, współpraca z organami.";
+            } else if (position < 0.55) {
+                return "💡 <strong>Średni wymiar:</strong> Standardowe okoliczności, typowy przebieg przestępstwa.";
+            } else if (position < 0.75) {
+                return "💡 <strong>Powyżej średniej:</strong> Zwiększona szkodliwość, zaplanowane działanie, większa skala czynu.";
+            } else {
+                return "💡 <strong>Wysoki wymiar kary:</strong> Czyn szczególnie rażący, poważne skutki, recydywa, działanie w zorganizowanej grupie, brak skruchy.";
+            }
+        }
+
         function calculateCrimes(targetMonths: number) {
-            const result: Array<{crime: typeof offencesPL[0], count: number, totalMonths: number}> = [];
+            const result: Array<{
+                crime: typeof offencesPL[0], 
+                count: number, 
+                targetPerCrime: number,
+                severityTip: string
+            }> = [];
             let remainingMonths = targetMonths;
             
-            // Sort crimes by average sentence (descending) to use greedy algorithm
-            const sortedCrimes = [...offencesPL].sort((a, b) => {
-                const avgA = (a.minMonths + a.maxMonths) / 2;
-                const avgB = (b.minMonths + b.maxMonths) / 2;
-                return avgB - avgA;
-            });
+            // Shuffle crimes for variety and randomness
+            const shuffledCrimes = [...offencesPL].sort(() => Math.random() - 0.5);
             
-            // Try to find a combination that gets close to the target
-            for (const crime of sortedCrimes) {
-                if (remainingMonths <= 0) break;
+            // Track what severity levels we've used (to encourage variety)
+            const usedSeverityLevels = new Set<string>(); // 'low', 'medium', 'high'
+            
+            // Helper function to score how "round" a number is
+            function getRoundnessScore(months: number): number {
+                // Perfect whole years get highest score
+                if (months % 12 === 0) return 3.0;
                 
-                // Use average sentence for calculation
+                // Half years (6, 18, 30, etc.)
+                if (months % 6 === 0) return 2.5;
+                
+                // Quarter years (3, 9, 15, 21, etc.)
+                if (months % 3 === 0) return 2.0;
+                
+                // Nice single-digit months (1-6)
+                if (months >= 1 && months <= 6) return 1.5;
+                
+                // Other values get lower scores
+                return 1.0;
+            }
+            
+            // Score each crime based on how well it fits the remaining target
+            function scoreCrime(crime: typeof offencesPL[0], remaining: number) {
                 const avgSentence = (crime.minMonths + crime.maxMonths) / 2;
-                const count = Math.floor(remainingMonths / avgSentence);
+                const range = crime.maxMonths - crime.minMonths;
                 
-                if (count > 0) {
-                    const totalForThisCrime = count * avgSentence;
-                    result.push({ 
-                        crime, 
-                        count, 
-                        totalMonths: totalForThisCrime 
+                // Try different count options (prefer lower counts)
+                let bestCountScore = -1;
+                let bestCount = 1;
+                let bestTargetPerCrime = 0;
+                
+                // Test counts from 1 to 2 (strongly prefer single instances)
+                for (let testCount = 1; testCount <= Math.min(2, Math.ceil(remaining / crime.minMonths)); testCount++) {
+                    const targetPerCrime = remaining / testCount;
+                    
+                    // Check if target is within range
+                    if (targetPerCrime < crime.minMonths || targetPerCrime > crime.maxMonths) {
+                        continue;
+                    }
+                    
+                    // Calculate position in range (0 = min, 1 = max)
+                    const position = range > 0 ? (targetPerCrime - crime.minMonths) / range : 0.5;
+                    
+                    // HUGE bonus for round numbers!
+                    const roundnessBonus = getRoundnessScore(targetPerCrime);
+                    
+                    // Strong preference for single instance
+                    const countBonus = testCount === 1 ? 2.5 : 1.2;
+                    
+                    // Bonus for using different severity levels
+                    let severityLevel = 'medium';
+                    if (position < 0.35) severityLevel = 'low';
+                    else if (position > 0.65) severityLevel = 'high';
+                    const severityVarietyBonus = usedSeverityLevels.has(severityLevel) ? 1.0 : 1.4;
+                    
+                    // Prefer positions that aren't exactly at average (more interesting)
+                    const interestBonus = 1 + Math.abs(position - 0.5) * 0.3;
+                    
+                    const countScore = roundnessBonus * countBonus * severityVarietyBonus * interestBonus;
+                    
+                    if (countScore > bestCountScore) {
+                        bestCountScore = countScore;
+                        bestCount = testCount;
+                        bestTargetPerCrime = targetPerCrime;
+                    }
+                }
+                
+                if (bestCountScore <= 0) {
+                    return { score: -1, count: 0, targetPerCrime: 0 };
+                }
+                
+                // Additional scoring factors
+                const position = range > 0 ? (bestTargetPerCrime - crime.minMonths) / range : 0.5;
+                
+                // Penalty for very high ranges (too flexible/boring)
+                const rangePenalty = range > 100 ? 0.7 : 1;
+                
+                // Small random factor for variety
+                const randomBonus = Math.random() * 0.3;
+                
+                const finalScore = bestCountScore * rangePenalty + randomBonus;
+                
+                return { 
+                    score: finalScore, 
+                    count: bestCount, 
+                    targetPerCrime: bestTargetPerCrime 
+                };
+            }
+            
+            // First, break down target into nice round numbers
+            function breakdownIntoRoundNumbers(total: number): number[] {
+                const pieces: number[] = [];
+                let remaining = total;
+                
+                // Strategy: prefer creating 2-4 pieces with round numbers
+                // For large totals, break into nice chunks
+                
+                if (remaining >= 48) {
+                    // For 4+ years, try to split into multiple pieces
+                    const yearOptions = [48, 36, 24, 12]; // 4, 3, 2, 1 years
+                    for (const yearMonths of yearOptions) {
+                        if (remaining >= yearMonths && pieces.length < 3) {
+                            pieces.push(yearMonths);
+                            remaining -= yearMonths;
+                            break; // Only take one, then move to next range
+                        }
+                    }
+                }
+                
+                // Medium chunks (1-3 years)
+                if (remaining >= 24 && pieces.length < 3) {
+                    pieces.push(24);
+                    remaining -= 24;
+                } else if (remaining >= 12 && pieces.length < 3) {
+                    pieces.push(12);
+                    remaining -= 12;
+                }
+                
+                // Smaller chunks (half years)
+                while (remaining >= 6 && pieces.length < 4) {
+                    pieces.push(6);
+                    remaining -= 6;
+                }
+                
+                // Small chunks (1-5 months)
+                if (remaining >= 3 && pieces.length < 5) {
+                    pieces.push(3);
+                    remaining -= 3;
+                }
+                
+                // Add remaining months as-is
+                if (remaining >= 1) {
+                    pieces.push(Math.round(remaining));
+                }
+                
+                return pieces;
+            }
+            
+            // Break target into round numbers
+            const targetPieces = breakdownIntoRoundNumbers(remainingMonths);
+            
+            const usedCrimes = new Set<string>();
+            
+            // Build combination by matching crimes to our target pieces
+            for (let pieceIndex = 0; pieceIndex < targetPieces.length; pieceIndex++) {
+                const targetPiece = targetPieces[pieceIndex];
+                
+                // Find best fitting crime for THIS specific piece
+                let bestCrime = null;
+                let bestScore = -1;
+                let bestCount = 0;
+                let bestTargetPerCrime = 0;
+                
+                for (const crime of shuffledCrimes) {
+                    if (usedCrimes.has(crime.name)) continue;
+                    
+                    const result = scoreCrime(crime, targetPiece);
+                    if (result.score > bestScore) {
+                        bestScore = result.score;
+                        bestCrime = crime;
+                        bestCount = result.count;
+                        bestTargetPerCrime = result.targetPerCrime;
+                    }
+                }
+                
+                // If we found a good crime, use it and move to next piece
+                if (bestCrime && bestScore > 0) {
+                    const actualTarget = Math.min(bestTargetPerCrime, bestCrime.maxMonths);
+                    
+                    // Track severity level for variety
+                    const range = bestCrime.maxMonths - bestCrime.minMonths;
+                    const position = range > 0 ? (actualTarget - bestCrime.minMonths) / range : 0.5;
+                    let severityLevel = 'medium';
+                    if (position < 0.35) severityLevel = 'low';
+                    else if (position > 0.65) severityLevel = 'high';
+                    usedSeverityLevels.add(severityLevel);
+                    
+                    const severityTip = getSeverityTip(actualTarget, bestCrime.minMonths, bestCrime.maxMonths);
+                    result.push({
+                        crime: bestCrime,
+                        count: bestCount,
+                        targetPerCrime: actualTarget,
+                        severityTip
                     });
-                    remainingMonths -= totalForThisCrime;
+                    
+                    usedCrimes.add(bestCrime.name);
+                    // Continue to next piece (don't break the outer loop)
                 }
             }
             
-            // If there's still remaining time, add smallest crimes
-            if (remainingMonths > 0 && result.length > 0) {
-                const smallestCrime = offencesPL.reduce((min, crime) => {
-                    const avgMin = (min.minMonths + min.maxMonths) / 2;
-                    const avgCrime = (crime.minMonths + crime.maxMonths) / 2;
-                    return avgCrime < avgMin ? crime : min;
-                });
-                const avgSentence = (smallestCrime.minMonths + smallestCrime.maxMonths) / 2;
-                const additionalCount = Math.ceil(remainingMonths / avgSentence);
-                result.push({ 
-                    crime: smallestCrime, 
-                    count: additionalCount, 
-                    totalMonths: additionalCount * avgSentence 
+            // If we still have nothing, fall back to simplest approach
+            if (result.length === 0 && targetMonths > 0) {
+                const crime = offencesPL.find(c => 
+                    targetMonths >= c.minMonths && targetMonths <= c.maxMonths
+                ) || offencesPL[0];
+                
+                const severityTip = getSeverityTip(targetMonths, crime.minMonths, crime.maxMonths);
+                result.push({
+                    crime,
+                    count: 1,
+                    targetPerCrime: Math.min(Math.max(targetMonths, crime.minMonths), crime.maxMonths),
+                    severityTip
                 });
             }
             
@@ -264,20 +513,141 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
         // Elements
         const slider = document.getElementById('time-slider') as HTMLInputElement;
         const timeDisplay = document.getElementById('time-display') as HTMLElement;
+        const timeInput = document.getElementById('time-input') as HTMLInputElement;
+        const timeUnit = document.getElementById('time-unit') as HTMLSelectElement;
+        const lifeSentence = document.getElementById('life-sentence') as HTMLInputElement;
         const calculateBtn = document.getElementById('calculate-btn') as HTMLButtonElement;
         const resultsDiv = document.getElementById('results') as HTMLElement;
         const resultTime = document.getElementById('result-time') as HTMLElement;
         const crimesList = document.getElementById('crimes-list') as HTMLElement;
 
+        let currentMonths = 12;
+        let isLifeSentence = false;
+
+        function convertToMonths(value: number, unit: string): number {
+            switch(unit) {
+                case 'days': return value / 30;
+                case 'months': return value;
+                case 'years': return value * 12;
+                default: return value;
+            }
+        }
+
+        function updateAllInputs(months: number, fromSource: 'slider' | 'manual' | 'life') {
+            currentMonths = months;
+            
+            // Update display
+            if (isLifeSentence) {
+                timeDisplay.textContent = "Dożywocie";
+            } else {
+                timeDisplay.textContent = formatTime(months);
+            }
+            
+            // Update slider (if not from slider)
+            if (fromSource !== 'slider') {
+                slider.value = Math.min(300, Math.max(0.033, months)).toString();
+            }
+            
+            // Update manual input (if not from manual)
+            if (fromSource !== 'manual') {
+                const unit = timeUnit.value;
+                let displayValue: number;
+                switch(unit) {
+                    case 'days':
+                        displayValue = Math.round(months * 30);
+                        break;
+                    case 'months':
+                        displayValue = Math.round(months);
+                        break;
+                    case 'years':
+                        displayValue = Math.round(months / 12 * 100) / 100;
+                        break;
+                    default:
+                        displayValue = months;
+                }
+                timeInput.value = displayValue.toString();
+            }
+        }
+
         // Update display when slider moves
         slider.addEventListener('input', () => {
-            const months = parseInt(slider.value);
-            timeDisplay.textContent = formatTime(months);
+            if (!isLifeSentence) {
+                const months = parseFloat(slider.value);
+                updateAllInputs(months, 'slider');
+            }
+        });
+
+        // Update when manual input changes
+        timeInput.addEventListener('input', () => {
+            if (!isLifeSentence) {
+                const value = parseFloat(timeInput.value) || 1;
+                const months = convertToMonths(value, timeUnit.value);
+                updateAllInputs(months, 'manual');
+            }
+        });
+
+        timeUnit.addEventListener('change', () => {
+            if (!isLifeSentence) {
+                const value = parseFloat(timeInput.value) || 1;
+                const months = convertToMonths(value, timeUnit.value);
+                updateAllInputs(months, 'manual');
+            }
+        });
+
+        // Handle life sentence checkbox
+        lifeSentence.addEventListener('change', () => {
+            isLifeSentence = lifeSentence.checked;
+            if (isLifeSentence) {
+                timeDisplay.textContent = "Dożywocie";
+                slider.disabled = true;
+                timeInput.disabled = true;
+                timeUnit.disabled = true;
+            } else {
+                slider.disabled = false;
+                timeInput.disabled = false;
+                timeUnit.disabled = false;
+                updateAllInputs(currentMonths, 'manual');
+            }
         });
 
         // Calculate on button click
         calculateBtn.addEventListener('click', () => {
-            const months = parseInt(slider.value);
+            // Handle life sentence separately
+            if (isLifeSentence) {
+                resultTime.textContent = "Dożywocie";
+                crimesList.innerHTML = '';
+                
+                const lifeCrimes = [
+                    { name: "Zabójstwo", basis: "art. 148 §1-2 KK", emoji: "⚰️", description: "Zabójstwo ze szczególnym okrucieństwem lub w celu osiągnięcia korzyści majątkowej" },
+                    { name: "Ludobójstwo", basis: "art. 118 §1 KK", emoji: "💀", description: "Udział w eksterminacji grupy narodowej, etnicznej, rasowej lub religijnej" },
+                    { name: "Zbrodnia przeciwko ludzkości", basis: "art. 118a KK", emoji: "🌍", description: "Systematyczne prześladowanie grup ludności" }
+                ];
+                
+                lifeCrimes.forEach((crime, index) => {
+                    const crimeDiv = document.createElement('div');
+                    crimeDiv.className = 'bg-red-50 rounded-xl p-4 sm:p-6 border-2 border-red-300 transition-colors hover:bg-red-100 animate-slide-in';
+                    crimeDiv.style.animationDelay = `${index * 0.1}s`;
+                    crimeDiv.innerHTML = `
+                        <div class="flex items-start gap-3 sm:gap-4">
+                            <span class="text-3xl sm:text-4xl flex-shrink-0 mt-1 sm:mt-0">${crime.emoji}</span>
+                            <div class="flex-1">
+                                <h3 class="text-slate-800 font-semibold text-base sm:text-lg">${crime.name}</h3>
+                                <p class="text-slate-600 text-xs sm:text-sm mt-1">${crime.description}</p>
+                                <p class="text-red-700 text-xs mt-1 font-medium">${crime.basis} | Kara: dożywocie</p>
+                            </div>
+                        </div>
+                    `;
+                    crimesList.appendChild(crimeDiv);
+                });
+                
+                resultsDiv.classList.remove('hidden');
+                resultsDiv.classList.add('animate-fade-in');
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+            
+            // Regular calculation
+            const months = currentMonths;
             const crimeCombination = calculateCrimes(months);
             
             // Update result time
@@ -286,33 +656,38 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
             // Clear previous results
             crimesList.innerHTML = '';
             
-            // Add new results with animation
+            // Add new results with animation and severity tips
             crimeCombination.forEach((item, index) => {
                 const crimeDiv = document.createElement('div');
                 crimeDiv.className = 'bg-slate-50 rounded-xl p-4 sm:p-6 border border-slate-200 transition-colors hover:bg-slate-100 animate-slide-in';
                 crimeDiv.style.animationDelay = `${index * 0.1}s`;
                 crimeDiv.setAttribute('role', 'listitem');
                 
-                const avgSentence = (item.crime.minMonths + item.crime.maxMonths) / 2;
                 const sentenceRange = `${formatTime(item.crime.minMonths)} – ${formatTime(item.crime.maxMonths)}`;
+                const targetSentence = formatTime(item.targetPerCrime);
                 
                 crimeDiv.innerHTML = `
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                        <div class="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
-                            <span class="text-3xl sm:text-4xl flex-shrink-0 mt-1 sm:mt-0" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
-                            <div class="flex-1 min-w-0">
-                                <h3 class="text-slate-800 font-semibold text-base sm:text-lg leading-tight">${item.crime.name}</h3>
-                                <p class="text-slate-600 text-xs sm:text-sm mt-1 break-words">
-                                    ${item.count}× | Kara: ${sentenceRange}
-                                </p>
-                                <p class="text-slate-500 text-xs mt-0.5">
-                                    ${item.crime.law} ${item.crime.basis}
-                                </p>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                            <div class="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
+                                <span class="text-3xl sm:text-4xl flex-shrink-0 mt-1 sm:mt-0" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="text-slate-800 font-semibold text-base sm:text-lg leading-tight">${item.crime.name}</h3>
+                                    <p class="text-slate-600 text-xs sm:text-sm mt-1 break-words">
+                                        ${item.count}× po ~${targetSentence} | Zakres kary: ${sentenceRange}
+                                    </p>
+                                    <p class="text-slate-500 text-xs mt-0.5">
+                                        ${item.crime.law} ${item.crime.basis}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-left sm:text-right flex-shrink-0 pl-10 sm:pl-0">
+                                <div class="text-blue-600 font-bold text-lg sm:text-xl">${formatTime(item.targetPerCrime * item.count)}</div>
+                                <div class="text-slate-600 text-xs sm:text-sm">razem</div>
                             </div>
                         </div>
-                        <div class="text-left sm:text-right flex-shrink-0 pl-10 sm:pl-0">
-                            <div class="text-blue-600 font-bold text-lg sm:text-xl">${formatTime(Math.round(item.totalMonths))}</div>
-                            <div class="text-slate-600 text-xs sm:text-sm">razem</div>
+                        <div class="bg-blue-50 rounded-lg p-3 text-xs sm:text-sm text-slate-700 border border-blue-200">
+                            ${item.severityTip}
                         </div>
                     </div>
                 `;
@@ -329,7 +704,7 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
         });
 
         // Initialize display
-        timeDisplay.textContent = formatTime(parseInt(slider.value));
+        updateAllInputs(12, 'manual');
     </script>
 
     <style>
