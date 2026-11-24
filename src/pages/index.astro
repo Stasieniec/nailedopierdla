@@ -1,294 +1,194 @@
 ---
 import '../styles/global.css';
 
-// SEO Configuration
-const siteTitle = "Na ile do pierdla? - Kalkulator Kar Więzienia";
-const siteDescription = "Interaktywny kalkulator oparty na polskim prawie karnym (KK i KW). Sprawdź jakie przestępstwa gwarantują wybrany okres w więzieniu. Bazuje na rzeczywistych przepisach i karach.";
-const siteUrl = "https://nailedopierdla.pages.dev"; // Update with your actual domain
-const siteImage = `${siteUrl}/og-image.jpg`; // We'll create this
-const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks karny, KK, KW, ile za przestępstwo, kara pozbawienia wolności, pierdla, więzienie, polskie prawo";
+const siteTitle = "Na ile do pierdla? Kalkulator wymiaru kary";
+const siteDescription = "Kalkulator oparty na Kodeksie karnym i Kodeksie wykroczeń. Wybierz, ile chcesz posiedzieć, i sprawdź, które czyny to zapewnią.";
+const siteUrl = "https://nailedopierdla.pl";
+const siteImage = `${siteUrl}/og-image.png`;
 ---
 
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    
-    <!-- Primary Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{siteTitle}</title>
-    <meta name="title" content={siteTitle}>
     <meta name="description" content={siteDescription}>
-    <meta name="keywords" content={keywords}>
-    <meta name="author" content="Na ile do pierdla">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Polish">
-    <meta name="revisit-after" content="7 days">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href={siteUrl}>
-    
-    <!-- Open Graph / Facebook -->
+    <link rel="canonical" href={siteUrl + "/"}>
+
     <meta property="og:type" content="website">
-    <meta property="og:url" content={siteUrl}>
-    <meta property="og:title" content={siteTitle}>
+    <meta property="og:url" content={siteUrl + "/"}>
+    <meta property="og:title" content="Na ile do pierdla?">
     <meta property="og:description" content={siteDescription}>
     <meta property="og:image" content={siteImage}>
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="pl_PL">
     <meta property="og:site_name" content="Na ile do pierdla?">
-    
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content={siteUrl}>
-    <meta name="twitter:title" content={siteTitle}>
+    <meta name="twitter:title" content="Na ile do pierdla?">
     <meta name="twitter:description" content={siteDescription}>
     <meta name="twitter:image" content={siteImage}>
-    
-    <!-- Additional SEO -->
-    <meta name="theme-color" content="#1e3a8a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Na ile do pierdla?">
-    
-    <!-- Favicons -->
+
+    <meta name="theme-color" content="#f5f3ee">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    
-    <!-- Preconnect for performance -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <!-- Structured Data (JSON-LD) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Na ile do pierdla?",
-      "description": "Kalkulator przestępstw oparty na polskim Kodeksie Karnym (KK) i Kodeksie Wykroczeń (KW). Oblicz wymagane przestępstwa dla wybranego okresu więzienia.",
-      "url": "https://nailedopierdla.pages.dev",
+      "description": "Kalkulator wymiaru kary oparty na Kodeksie karnym i Kodeksie wykroczeń.",
+      "url": "https://nailedopierdla.pl/",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Any",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "PLN"
-      },
       "inLanguage": "pl-PL",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Educational"
-      },
-      "keywords": "kalkulator przestępstw, kary więzienia, prawo karne, kodeks karny, KK, KW"
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" }
     }
     </script>
 </head>
-<body class="min-h-screen bg-white">
-    <div class="min-h-screen flex items-center justify-center p-4 bg-slate-50">
-        <div class="max-w-4xl w-full">
-            <!-- Header -->
-            <header class="text-center mb-8 md:mb-12 animate-fade-in px-2">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-blue-900 mb-4 leading-tight">
-                    Na ile do <span class="text-blue-900">pierdla</span>?
-                </h1>
-                <p class="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                    Przygniatający ciężar rzeczywistości sprawia, że chcesz zniknąć na parę lat? Może by tak pójść więzienia na zimę? Albo przeczekać lato w klimatyzowanej celi? Wpisz wybrany okres czasu i dowiedz się jakie przestępstwa go gwarantują.
-                </p>
-            </header>
-
-            <!-- Calculator Card -->
-            <main class="bg-white rounded-xl p-6 sm:p-8 md:p-12 shadow-lg border border-slate-200">
-                <!-- Time Slider Section -->
-                <section class="mb-6 md:mb-8" aria-label="Wybór czasu">
-                    <label for="time-slider" class="block text-slate-800 text-lg sm:text-xl font-semibold mb-4">
-                        Wybierz czas: <span id="time-display" class="text-blue-600" aria-live="polite">1 rok</span>
-                    </label>
-                    
-                    <!-- Manual Input Section -->
-                    <div class="mb-4 flex flex-col sm:flex-row gap-3">
-                        <div class="flex-1">
-                            <label for="time-input" class="block text-slate-700 text-sm font-medium mb-2">Precyzyjny wybór:</label>
-                            <div class="flex gap-2">
-                                <input 
-                                    type="number" 
-                                    id="time-input" 
-                                    min="1" 
-                                    max="300" 
-                                    value="12"
-                                    class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-800"
-                                    aria-label="Wprowadź liczbę"
-                                >
-                                <select 
-                                    id="time-unit" 
-                                    class="px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-800 bg-white"
-                                    aria-label="Wybierz jednostkę czasu"
-                                >
-                                    <option value="days">dni</option>
-                                    <option value="months" selected>miesięcy</option>
-                                    <option value="years">lat</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="flex items-end">
-                            <label class="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 transition-colors">
-                                <input 
-                                    type="checkbox" 
-                                    id="life-sentence" 
-                                    class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-600"
-                                    aria-label="Dożywocie"
-                                >
-                                <span class="text-slate-800 font-medium">Dożywocie</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Slider -->
-                    <div class="relative">
-                        <input 
-                            type="range" 
-                            id="time-slider" 
-                            min="0.033" 
-                            max="300" 
-                            step="0.033"
-                            value="12" 
-                            class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer slider touch-manipulation"
-                            aria-label="Suwak wyboru czasu więzienia"
-                        >
-                        <div class="flex justify-between text-xs sm:text-sm text-slate-500 mt-2">
-                            <span>1 dzień</span>
-                            <span>25 lat</span>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Calculate Button -->
-                <button 
-                    id="calculate-btn"
-                    class="w-full bg-blue-900 text-white text-lg sm:text-xl font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl hover:bg-blue-800 transition-colors duration-200 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-600/50"
-                    aria-label="Oblicz kombinację przestępstw"
-                >
-                    Oblicz przestępstwa
-                </button>
-
-                <!-- Results Section -->
-                <section id="results" class="mt-6 md:mt-8 hidden" aria-label="Wyniki kalkulacji">
-                    <div class="border-t border-slate-200 pt-6 md:pt-8">
-                        <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-4 md:mb-6 leading-tight">
-                            Twoja ścieżka do <span class="text-blue-600" id="result-time"></span>:
-                        </h2>
-                        <div id="crimes-list" class="space-y-3 md:space-y-4" role="list">
-                            <!-- Crimes will be inserted here -->
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <!-- Disclaimer -->
-            <footer class="mt-6 md:mt-8 text-center text-slate-500 text-xs sm:text-sm px-4 leading-relaxed">
-                <p>Kary oparte o polski Kodeks Karny (KK) i Kodeks Wykroczeń (KW).</p>
-                <p class="mt-1">Informacje mają charakter wyłącznie informacyjny i nie stanowią porady prawnej.</p>
-            </footer>
+<body>
+    <header class="topbar">
+        <div class="wrap topbar-inner">
+            <a href="/" class="wordmark">nailedopierdla.pl</a>
+            <span class="topbar-meta">Kalkulator wymiaru kary</span>
         </div>
-    </div>
+    </header>
+
+    <main class="wrap">
+        <section class="intro">
+            <p class="eyebrow">Kodeks karny · Kodeks wykroczeń</p>
+            <h1>Na ile do pierdla?</h1>
+            <p class="lede">
+                Przygniatający ciężar rzeczywistości sprawia, że chcesz zniknąć na parę lat? Może by tak pójść do więzienia na zimę? Albo przeczekać lato w klimatyzowanej celi? Wpisz wybrany okres czasu i dowiedz się, jakie przestępstwa go gwarantują.
+            </p>
+        </section>
+
+        <div class="calc">
+            <section class="panel form" aria-label="Wybór okresu">
+                <h2 class="panel-label">Wymiar kary</h2>
+                <output id="time-display" class="readout" for="time-slider" aria-live="polite">1 rok</output>
+
+                <input
+                    type="range"
+                    id="time-slider"
+                    min="0.033"
+                    max="300"
+                    step="0.033"
+                    value="12"
+                    class="slider"
+                    aria-label="Wymiar kary"
+                >
+                <div class="scale"><span>1 dzień</span><span>25 lat</span></div>
+
+                <div class="field">
+                    <label for="time-input">Dokładnie</label>
+                    <div class="field-row">
+                        <input type="number" id="time-input" min="1" max="300" value="12" inputmode="decimal">
+                        <select id="time-unit" aria-label="Jednostka">
+                            <option value="days">dni</option>
+                            <option value="months" selected>miesięcy</option>
+                            <option value="years">lat</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="check">
+                    <input type="checkbox" id="life-sentence">
+                    <span>Dożywocie</span>
+                </label>
+
+                <button id="calculate-btn" type="button">Oblicz</button>
+            </section>
+
+            <section id="results" class="panel results" aria-label="Wyliczenie" aria-live="polite">
+                <div class="results-head">
+                    <h2 class="panel-label">Wyliczenie</h2>
+                    <p class="results-total" id="result-time"></p>
+                </div>
+                <ol id="crimes-list" class="positions"></ol>
+                <div id="sum-row" class="sum" hidden>
+                    <span>Razem</span>
+                    <span id="sum-value"></span>
+                </div>
+                <p id="sum-note" class="footnote" hidden>
+                    Suma kar jednostkowych. Za kilka przestępstw sąd wymierza karę łączną (art. 85 i nast. k.k.), która może być niższa od sumy.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="wrap footer">
+        <p>Kary według Kodeksu karnego i Kodeksu wykroczeń.</p>
+        <p>Serwis ma charakter wyłącznie informacyjny i nie stanowi porady prawnej.</p>
+    </footer>
 
     <script>
-        // Crime database based on actual Polish law
         const offencesPL = [
             // WYKROCZENIA (KW) – minor offenses with arrests in days
-            { name: "Niszczenie lub uszkadzanie drzew/krzewów (wykroczenie)", law: "KW", basis: "art. 162", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🌳" },
-            { name: "Niszczenie lub uszkadzanie urządzeń użytku publicznego", law: "KW", basis: "art. 124a", penalty: "areszt do 30 dni / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🚏" },
-            { name: "Kradzież do 800 zł (wykroczenie)", law: "KW", basis: "art. 119 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🛒" },
-            { name: "Zakłócanie spokoju / porządku publicznego", law: "KW", basis: "art. 51", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "📢" },
-            { name: "Uszkodzenie lub zniszczenie mienia do 800 zł (wykroczenie)", law: "KW", basis: "art. 124 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1, emoji: "🔨" },
-            { name: "Prowadzenie pojazdu w stanie po użyciu alkoholu (wykroczenie)", law: "KW", basis: "art. 87", penalty: "areszt albo grzywna (min. 2500 zł) + zakaz prowadzenia", minMonths: 0.5, maxMonths: 1, emoji: "🍺" },
-            { name: "Nielegalne przekraczanie granicy (wykroczenie)", law: "KW", basis: "art. 49", penalty: "areszt / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🚧" },
-            { name: "Zakłócanie porządku w miejscach publicznych", law: "KW", basis: "art. 141", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1, emoji: "🎭" },
+            { name: "Niszczenie lub uszkadzanie drzew/krzewów (wykroczenie)", law: "KW", basis: "art. 162", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1 },
+            { name: "Niszczenie lub uszkadzanie urządzeń użytku publicznego", law: "KW", basis: "art. 124a", penalty: "areszt do 30 dni / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1 },
+            { name: "Kradzież do 800 zł (wykroczenie)", law: "KW", basis: "art. 119 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1 },
+            { name: "Zakłócanie spokoju / porządku publicznego", law: "KW", basis: "art. 51", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1 },
+            { name: "Uszkodzenie lub zniszczenie mienia do 800 zł (wykroczenie)", law: "KW", basis: "art. 124 §1", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.5, maxMonths: 1 },
+            { name: "Prowadzenie pojazdu w stanie po użyciu alkoholu (wykroczenie)", law: "KW", basis: "art. 87", penalty: "areszt albo grzywna (min. 2500 zł) + zakaz prowadzenia", minMonths: 0.5, maxMonths: 1 },
+            { name: "Nielegalne przekraczanie granicy (wykroczenie)", law: "KW", basis: "art. 49", penalty: "areszt / grzywna", minMonths: 0.033, maxMonths: 1 },
+            { name: "Zakłócanie porządku w miejscach publicznych", law: "KW", basis: "art. 141", penalty: "areszt / ograniczenie wolności / grzywna", minMonths: 0.033, maxMonths: 1 },
 
             // PRZESTĘPSTWA KRÓTKOTERMINOWE (do 2 lat)
-            { name: "Groźba karalna", law: "KK", basis: "art. 190 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "☎️" },
-            { name: "Naruszenie miru domowego (wtargnięcie / nieopuszczenie terenu)", law: "KK", basis: "art. 193", penalty: "grzywna / ograniczenie / pozb. woln. do 1 roku", minMonths: 1, maxMonths: 12, emoji: "🏠" },
-            { name: "Złośliwe przeszkadzanie pogrzebowi / obrzędom", law: "KK", basis: "art. 195", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⚰️" },
-            { name: "Znieważenie pomnika lub miejsca pamięci", law: "KK", basis: "art. 261", penalty: "grzywna / ograniczenie wolności", minMonths: 0.5, maxMonths: 2, emoji: "🗿" },
-            { name: "Obraza uczuć religijnych", law: "KK", basis: "art. 196", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "⛪" },
-            { name: "Nielegalne udostępnianie danych osobowych", law: "KK", basis: "art. 267a", penalty: "pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24, emoji: "📱" },
+            { name: "Groźba karalna", law: "KK", basis: "art. 190 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36 },
+            { name: "Naruszenie miru domowego (wtargnięcie / nieopuszczenie terenu)", law: "KK", basis: "art. 193", penalty: "grzywna / ograniczenie / pozb. woln. do 1 roku", minMonths: 1, maxMonths: 12 },
+            { name: "Złośliwe przeszkadzanie pogrzebowi / obrzędom", law: "KK", basis: "art. 195", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24 },
+            { name: "Znieważenie pomnika lub miejsca pamięci", law: "KK", basis: "art. 261", penalty: "grzywna / ograniczenie wolności", minMonths: 0.5, maxMonths: 2 },
+            { name: "Obraza uczuć religijnych", law: "KK", basis: "art. 196", penalty: "grzywna / ograniczenie / pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24 },
+            { name: "Nielegalne udostępnianie danych osobowych", law: "KK", basis: "art. 267a", penalty: "pozb. woln. do 2 lat", minMonths: 1, maxMonths: 24 },
 
             // PRZESTĘPSTWA ŚREDNIOTERMINOWE (3 mies. – 5 lat)
-            { name: "Kradzież", law: "KK", basis: "art. 278 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🛒" },
-            { name: "Zabór pojazdu w celu krótkotrwałego użycia (tzw. joyriding)", law: "KK", basis: "art. 289 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚗" },
-            { name: "Zniszczenie cudzej rzeczy (np. graffiti jako szkoda)", law: "KK", basis: "art. 288 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🎨" },
-            { name: "Paserstwo (handel/ukrywanie rzeczy z przestępstwa)", law: "KK", basis: "art. 291 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📦" },
-            { name: "Fałszowanie dokumentu", law: "KK", basis: "art. 270 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "📝" },
-            { name: "Znęcanie się", law: "KK", basis: "art. 207 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🧱" },
-            { name: "Pobicie / bójka (podstawowy typ)", law: "KK", basis: "art. 158 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🤜" },
-            { name: "Prowadzenie pojazdu w stanie nietrzeźwości (przestępstwo)", law: "KK", basis: "art. 178a §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36, emoji: "🍺" },
-            { name: "Bezprawne pozbawienie wolności (podstawowy)", law: "KK", basis: "art. 189 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60, emoji: "🚪" },
+            { name: "Kradzież", law: "KK", basis: "art. 278 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Zabór pojazdu w celu krótkotrwałego użycia (tzw. joyriding)", law: "KK", basis: "art. 289 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Zniszczenie cudzej rzeczy (np. graffiti jako szkoda)", law: "KK", basis: "art. 288 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Paserstwo (handel/ukrywanie rzeczy z przestępstwa)", law: "KK", basis: "art. 291 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Fałszowanie dokumentu", law: "KK", basis: "art. 270 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Znęcanie się", law: "KK", basis: "art. 207 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
+            { name: "Pobicie / bójka (podstawowy typ)", law: "KK", basis: "art. 158 §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36 },
+            { name: "Prowadzenie pojazdu w stanie nietrzeźwości (przestępstwo)", law: "KK", basis: "art. 178a §1", penalty: "pozb. woln. do 3 lat", minMonths: 1, maxMonths: 36 },
+            { name: "Bezprawne pozbawienie wolności (podstawowy)", law: "KK", basis: "art. 189 §1", penalty: "pozb. woln. 3 mies. – 5 lat", minMonths: 3, maxMonths: 60 },
 
             // PRZESTĘPSTWA ŚREDNIO-POWAŻNE (6 mies. – 8/10 lat)
-            { name: "Kradzież szczególnie zuchwała", law: "KK", basis: "art. 278 §3a", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🧤" },
-            { name: "Oszustwo", law: "KK", basis: "art. 286 §1", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "💳" },
-            { name: "Uporczywe nękanie / kradzież tożsamości", law: "KK", basis: "art. 190a §1–2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🕵️" },
-            { name: "Nielegalne posiadanie broni palnej lub amunicji", law: "KK", basis: "art. 263 §2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96, emoji: "🔫" },
-            { name: "Kradzież z włamaniem", law: "KK", basis: "art. 279 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🪟" },
-            { name: "Uszkodzenie podmorskiego kabla (tak, serio)", law: "KK", basis: "art. 288 §3", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🌊" },
-            { name: "Bezprawne pozbawienie wolności dłużej niż 7 dni", law: "KK", basis: "art. 189 §2", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "⛓️" },
-            { name: "Zgwałcenie", law: "KK", basis: "art. 197 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "🚫" },
-            { name: "Udział w zorganizowanej grupie przestępczej", law: "KK", basis: "art. 258 §1", penalty: "pozb. woln. 3 mies. – 5 lat (w zw. z innymi: do 15 lat)", minMonths: 3, maxMonths: 180, emoji: "👥" },
+            { name: "Kradzież szczególnie zuchwała", law: "KK", basis: "art. 278 §3a", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96 },
+            { name: "Oszustwo", law: "KK", basis: "art. 286 §1", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96 },
+            { name: "Uporczywe nękanie / kradzież tożsamości", law: "KK", basis: "art. 190a §1–2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96 },
+            { name: "Nielegalne posiadanie broni palnej lub amunicji", law: "KK", basis: "art. 263 §2", penalty: "pozb. woln. 6 mies. – 8 lat", minMonths: 6, maxMonths: 96 },
+            { name: "Kradzież z włamaniem", law: "KK", basis: "art. 279 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120 },
+            { name: "Uszkodzenie podmorskiego kabla (tak, serio)", law: "KK", basis: "art. 288 §3", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120 },
+            { name: "Bezprawne pozbawienie wolności dłużej niż 7 dni", law: "KK", basis: "art. 189 §2", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120 },
+            { name: "Zgwałcenie", law: "KK", basis: "art. 197 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180 },
+            { name: "Udział w zorganizowanej grupie przestępczej", law: "KK", basis: "art. 258 §1", penalty: "pozb. woln. 3 mies. – 5 lat (w zw. z innymi: do 15 lat)", minMonths: 3, maxMonths: 180 },
 
             // PRZESTĘPSTWA POWAŻNE (2-15 lat)
-            { name: "Spowodowanie ciężkiego uszczerbku na zdrowiu", law: "KK", basis: "art. 156 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🏥" },
-            { name: "Rozbój (napad z użyciem przemocy)", law: "KK", basis: "art. 280 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "💰" },
-            { name: "Wymuszenie rozbójnicze", law: "KK", basis: "art. 282", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120, emoji: "🔪" },
-            { name: "Porwanie dla okupu", law: "KK", basis: "art. 252 §2", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "💵" },
-            { name: "Produkcja lub handel znacznymi ilościami narkotyków", law: "KK", basis: "art. 63 ustawy o przeciwdziałaniu narkomanii", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "💊" },
+            { name: "Spowodowanie ciężkiego uszczerbku na zdrowiu", law: "KK", basis: "art. 156 §1", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120 },
+            { name: "Rozbój (napad z użyciem przemocy)", law: "KK", basis: "art. 280 §1", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180 },
+            { name: "Wymuszenie rozbójnicze", law: "KK", basis: "art. 282", penalty: "pozb. woln. 1 – 10 lat", minMonths: 12, maxMonths: 120 },
+            { name: "Porwanie dla okupu", law: "KK", basis: "art. 252 §2", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240 },
+            { name: "Produkcja lub handel znacznymi ilościami narkotyków", law: "", basis: "art. 63 ustawy o przeciwdziałaniu narkomanii", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180 },
 
             // PRZESTĘPSTWA BARDZO POWAŻNE (3-25 lat)
-            { name: "Zabójstwo", law: "KK", basis: "art. 148 §1", penalty: "pozb. woln. 8 – 15 lat / 25 lat / dożywocie", minMonths: 96, maxMonths: 300, emoji: "☠️" },
-            { name: "Zabójstwo ze szczególnym okrucieństwem", law: "KK", basis: "art. 148 §2", penalty: "pozb. woln. 12 – 25 lat / dożywocie", minMonths: 144, maxMonths: 300, emoji: "🔴" },
-            { name: "Handel ludźmi", law: "KK", basis: "art. 189a §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "⛓️" },
-            { name: "Wzięcie zakładnika", law: "KK", basis: "art. 252 §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240, emoji: "🚨" },
-            { name: "Spowodowanie katastrofy w ruchu lądowym ze skutkiem śmiertelnym", law: "KK", basis: "art. 173 §4", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180, emoji: "🚂" },
-            { name: "Terroryzm", law: "KK", basis: "art. 115 §20 + 148", penalty: "pozb. woln. do 25 lat / dożywocie", minMonths: 60, maxMonths: 300, emoji: "💣" },
-            { name: "Zdrada kraju", law: "KK", basis: "art. 127", penalty: "pozb. woln. 5 – 25 lat / dożywocie", minMonths: 60, maxMonths: 300, emoji: "🕵️‍♂️" },
+            { name: "Zabójstwo", law: "KK", basis: "art. 148 §1", penalty: "pozb. woln. 8 – 15 lat / 25 lat / dożywocie", minMonths: 96, maxMonths: 300 },
+            { name: "Zabójstwo ze szczególnym okrucieństwem", law: "KK", basis: "art. 148 §2", penalty: "pozb. woln. 12 – 25 lat / dożywocie", minMonths: 144, maxMonths: 300 },
+            { name: "Handel ludźmi", law: "KK", basis: "art. 189a §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240 },
+            { name: "Wzięcie zakładnika", law: "KK", basis: "art. 252 §1", penalty: "pozb. woln. 3 – 20 lat", minMonths: 36, maxMonths: 240 },
+            { name: "Spowodowanie katastrofy w ruchu lądowym ze skutkiem śmiertelnym", law: "KK", basis: "art. 173 §4", penalty: "pozb. woln. 2 – 15 lat", minMonths: 24, maxMonths: 180 },
+            { name: "Terroryzm", law: "KK", basis: "art. 115 §20 + 148", penalty: "pozb. woln. do 25 lat / dożywocie", minMonths: 60, maxMonths: 300 },
+            { name: "Zdrada kraju", law: "KK", basis: "art. 127", penalty: "pozb. woln. 5 – 25 lat / dożywocie", minMonths: 60, maxMonths: 300 },
         ];
-
-        function formatTime(months: number): string {
-            if (months < 1) {
-                const days = Math.round(months * 30);
-                return days === 1 ? "1 dzień" : `${days} dni`;
-            } else if (months < 12) {
-                const rounded = Math.round(months);
-                return rounded === 1 ? "1 miesiąc" : `${rounded} miesięcy`;
-            } else {
-                const years = Math.floor(months / 12);
-                const remainingMonths = Math.round(months % 12);
-                if (remainingMonths === 0) {
-                    return years === 1 ? "1 rok" : `${years} lat`;
-                } else {
-                    return `${years} ${years === 1 ? 'rok' : 'lat'} i ${remainingMonths} ${remainingMonths === 1 ? 'miesiąc' : 'miesięcy'}`;
-                }
-            }
-        }
-
-        function getSeverityTip(targetMonths: number, minMonths: number, maxMonths: number): string {
-            const range = maxMonths - minMonths;
-            const position = (targetMonths - minMonths) / range;
-            
-            if (position < 0.25) {
-                return "💡 <strong>Niski wymiar kary:</strong> Czyn powinien być mniej poważny, sprawca skruszony, brak recydywy, okoliczności łagodzące (art. 53 KK).";
-            } else if (position < 0.45) {
-                return "💡 <strong>Poniżej średniej:</strong> Ograniczona szkodliwość społeczna, brak złego zamiaru, współpraca z organami.";
-            } else if (position < 0.55) {
-                return "💡 <strong>Średni wymiar:</strong> Standardowe okoliczności, typowy przebieg przestępstwa.";
-            } else if (position < 0.75) {
-                return "💡 <strong>Powyżej średniej:</strong> Zwiększona szkodliwość, zaplanowane działanie, większa skala czynu.";
-            } else {
-                return "💡 <strong>Wysoki wymiar kary:</strong> Czyn szczególnie rażący, poważne skutki, recydywa, działanie w zorganizowanej grupie, brak skruchy.";
-            }
-        }
 
         function calculateCrimes(targetMonths: number) {
             const result: Array<{
@@ -510,6 +410,60 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
             return result;
         }
 
+        // Polish forms: [1, 2-4, 5+, genitive singular]
+        const UNITS = {
+            day: ["dzień", "dni", "dni", "dnia"],
+            month: ["miesiąc", "miesiące", "miesięcy", "miesiąca"],
+            year: ["rok", "lata", "lat", "roku"],
+        };
+
+        function plural(n: number, unit: keyof typeof UNITS, genitive = false): string {
+            const [one, few, many, genOne] = UNITS[unit];
+            if (n === 1) return `1 ${genitive ? genOne : one}`;
+            if (genitive) return `${n} ${many}`;
+            const d = n % 10, h = n % 100;
+            return `${n} ${d >= 2 && d <= 4 && (h < 12 || h > 14) ? few : many}`;
+        }
+
+        function formatTime(months: number, genitive = false): string {
+            if (months < 1) {
+                return plural(Math.max(1, Math.round(months * 30)), 'day', genitive);
+            }
+            let years = Math.floor(months / 12);
+            let rest = Math.round(months - years * 12);
+            if (rest === 12) { years += 1; rest = 0; }
+            if (years === 0) return plural(rest, 'month', genitive);
+            if (rest === 0) return plural(years, 'year', genitive);
+            return `${plural(years, 'year', genitive)} i ${plural(rest, 'month', genitive)}`;
+        }
+
+        function getSeverityTip(targetMonths: number, minMonths: number, maxMonths: number): string {
+            const range = maxMonths - minMonths;
+            const position = range > 0 ? (targetMonths - minMonths) / range : 0.5;
+
+            if (position < 0.25) {
+                return "<span>Niski wymiar kary.</span> Czyn powinien być mniej poważny, sprawca skruszony, brak recydywy, okoliczności łagodzące (art. 53 k.k.).";
+            } else if (position < 0.45) {
+                return "<span>Poniżej średniej.</span> Ograniczona szkodliwość społeczna, brak złego zamiaru, współpraca z organami.";
+            } else if (position < 0.55) {
+                return "<span>Średni wymiar.</span> Standardowe okoliczności, typowy przebieg przestępstwa.";
+            } else if (position < 0.75) {
+                return "<span>Powyżej średniej.</span> Zwiększona szkodliwość, zaplanowane działanie, większa skala czynu.";
+            } else {
+                return "<span>Wysoki wymiar kary.</span> Czyn szczególnie rażący, poważne skutki, recydywa, działanie w zorganizowanej grupie, brak skruchy.";
+            }
+        }
+
+        // "art. 286 §1" + "KK" -> "art. 286 § 1 k.k."
+        function citation(law: string, basis: string): string {
+            const code = law === 'KK' ? ' k.k.' : law === 'KW' ? ' k.w.' : '';
+            return basis.replace(/§\s*/g, '§ ') + code;
+        }
+
+        function rangeText(minMonths: number, maxMonths: number): string {
+            return `od ${formatTime(minMonths, true)} do ${formatTime(maxMonths, true)}`;
+        }
+
         // Elements
         const slider = document.getElementById('time-slider') as HTMLInputElement;
         const timeDisplay = document.getElementById('time-display') as HTMLElement;
@@ -520,6 +474,9 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
         const resultsDiv = document.getElementById('results') as HTMLElement;
         const resultTime = document.getElementById('result-time') as HTMLElement;
         const crimesList = document.getElementById('crimes-list') as HTMLElement;
+        const sumRow = document.getElementById('sum-row') as HTMLElement;
+        const sumValue = document.getElementById('sum-value') as HTMLElement;
+        const sumNote = document.getElementById('sum-note') as HTMLElement;
 
         let currentMonths = 12;
         let isLifeSentence = false;
@@ -533,304 +490,131 @@ const keywords = "kalkulator przestępstw, kary więzienia, prawo karne, kodeks 
             }
         }
 
+        function updateSliderFill() {
+            const min = parseFloat(slider.min), max = parseFloat(slider.max);
+            const pct = ((parseFloat(slider.value) - min) / (max - min)) * 100;
+            slider.style.setProperty('--fill', `${pct}%`);
+        }
+
         function updateAllInputs(months: number, fromSource: 'slider' | 'manual' | 'life') {
             currentMonths = months;
-            
-            // Update display
-            if (isLifeSentence) {
-                timeDisplay.textContent = "Dożywocie";
-            } else {
-                timeDisplay.textContent = formatTime(months);
-            }
-            
-            // Update slider (if not from slider)
+            timeDisplay.textContent = isLifeSentence ? "Dożywocie" : formatTime(months);
+
             if (fromSource !== 'slider') {
                 slider.value = Math.min(300, Math.max(0.033, months)).toString();
             }
-            
-            // Update manual input (if not from manual)
+            updateSliderFill();
+
             if (fromSource !== 'manual') {
-                const unit = timeUnit.value;
                 let displayValue: number;
-                switch(unit) {
-                    case 'days':
-                        displayValue = Math.round(months * 30);
-                        break;
-                    case 'months':
-                        displayValue = Math.round(months);
-                        break;
-                    case 'years':
-                        displayValue = Math.round(months / 12 * 100) / 100;
-                        break;
-                    default:
-                        displayValue = months;
+                switch(timeUnit.value) {
+                    case 'days': displayValue = Math.round(months * 30); break;
+                    case 'months': displayValue = Math.round(months); break;
+                    case 'years': displayValue = Math.round(months / 12 * 100) / 100; break;
+                    default: displayValue = months;
                 }
                 timeInput.value = displayValue.toString();
             }
         }
 
-        // Update display when slider moves
         slider.addEventListener('input', () => {
-            if (!isLifeSentence) {
-                const months = parseFloat(slider.value);
-                updateAllInputs(months, 'slider');
-            }
+            if (!isLifeSentence) updateAllInputs(parseFloat(slider.value), 'slider');
         });
 
-        // Update when manual input changes
         timeInput.addEventListener('input', () => {
             if (!isLifeSentence) {
                 const value = parseFloat(timeInput.value) || 1;
-                const months = convertToMonths(value, timeUnit.value);
-                updateAllInputs(months, 'manual');
+                updateAllInputs(convertToMonths(value, timeUnit.value), 'manual');
             }
         });
 
         timeUnit.addEventListener('change', () => {
             if (!isLifeSentence) {
                 const value = parseFloat(timeInput.value) || 1;
-                const months = convertToMonths(value, timeUnit.value);
-                updateAllInputs(months, 'manual');
+                updateAllInputs(convertToMonths(value, timeUnit.value), 'manual');
             }
         });
 
-        // Handle life sentence checkbox
         lifeSentence.addEventListener('change', () => {
             isLifeSentence = lifeSentence.checked;
-            if (isLifeSentence) {
-                timeDisplay.textContent = "Dożywocie";
-                slider.disabled = true;
-                timeInput.disabled = true;
-                timeUnit.disabled = true;
-            } else {
-                slider.disabled = false;
-                timeInput.disabled = false;
-                timeUnit.disabled = false;
-                updateAllInputs(currentMonths, 'manual');
-            }
+            slider.disabled = isLifeSentence;
+            timeInput.disabled = isLifeSentence;
+            timeUnit.disabled = isLifeSentence;
+            document.body.classList.toggle('is-life', isLifeSentence);
+            updateAllInputs(currentMonths, 'life');
         });
 
-        // Calculate on button click
-        calculateBtn.addEventListener('click', () => {
-            // Handle life sentence separately
+        function positionHtml(index: number, title: string, cite: string, meta: Array<[string, string]>, note: string, amount: string): string {
+            const metaHtml = meta.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+            return `
+                <span class="pos-no">${index + 1}.</span>
+                <div class="pos-body">
+                    <h3>${title}</h3>
+                    <p class="cite">${cite}</p>
+                    <dl class="meta">${metaHtml}</dl>
+                    ${note ? `<p class="note">${note}</p>` : ''}
+                </div>
+                <div class="pos-amount">${amount}</div>
+            `;
+        }
+
+        function render() {
+            crimesList.innerHTML = '';
+            resultsDiv.classList.remove('is-fresh');
+            void resultsDiv.offsetWidth;
+            resultsDiv.classList.add('is-fresh');
+
             if (isLifeSentence) {
                 resultTime.textContent = "Dożywocie";
-                crimesList.innerHTML = '';
-                
                 const lifeCrimes = [
-                    { name: "Zabójstwo", basis: "art. 148 §1-2 KK", emoji: "⚰️", description: "Zabójstwo ze szczególnym okrucieństwem lub w celu osiągnięcia korzyści majątkowej" },
-                    { name: "Ludobójstwo", basis: "art. 118 §1 KK", emoji: "💀", description: "Udział w eksterminacji grupy narodowej, etnicznej, rasowej lub religijnej" },
-                    { name: "Zbrodnia przeciwko ludzkości", basis: "art. 118a KK", emoji: "🌍", description: "Systematyczne prześladowanie grup ludności" }
+                    { name: "Zabójstwo", basis: "art. 148 § 1–2 k.k.", description: "Zabójstwo ze szczególnym okrucieństwem lub w celu osiągnięcia korzyści majątkowej." },
+                    { name: "Ludobójstwo", basis: "art. 118 § 1 k.k.", description: "Udział w eksterminacji grupy narodowej, etnicznej, rasowej lub religijnej." },
+                    { name: "Zbrodnia przeciwko ludzkości", basis: "art. 118a k.k.", description: "Systematyczne prześladowanie grup ludności." }
                 ];
-                
                 lifeCrimes.forEach((crime, index) => {
-                    const crimeDiv = document.createElement('div');
-                    crimeDiv.className = 'bg-red-50 rounded-xl p-4 sm:p-6 border-2 border-red-300 transition-colors hover:bg-red-100 animate-slide-in';
-                    crimeDiv.style.animationDelay = `${index * 0.1}s`;
-                    crimeDiv.innerHTML = `
-                        <div class="flex items-start gap-3 sm:gap-4">
-                            <span class="text-3xl sm:text-4xl flex-shrink-0 mt-1 sm:mt-0">${crime.emoji}</span>
-                            <div class="flex-1">
-                                <h3 class="text-slate-800 font-semibold text-base sm:text-lg">${crime.name}</h3>
-                                <p class="text-slate-600 text-xs sm:text-sm mt-1">${crime.description}</p>
-                                <p class="text-red-700 text-xs mt-1 font-medium">${crime.basis} | Kara: dożywocie</p>
-                            </div>
-                        </div>
-                    `;
-                    crimesList.appendChild(crimeDiv);
+                    const li = document.createElement('li');
+                    li.className = 'pos';
+                    li.style.animationDelay = `${index * 60}ms`;
+                    li.innerHTML = positionHtml(index, crime.name, crime.basis, [["Zagrożenie", "dożywotnie pozbawienie wolności"]], crime.description, "dożywocie");
+                    crimesList.appendChild(li);
                 });
-                
-                resultsDiv.classList.remove('hidden');
-                resultsDiv.classList.add('animate-fade-in');
-                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                sumRow.hidden = true;
+                sumNote.hidden = true;
                 return;
             }
-            
-            // Regular calculation
+
             const months = currentMonths;
-            const crimeCombination = calculateCrimes(months);
-            
-            // Update result time
+            const combination = calculateCrimes(months);
             resultTime.textContent = formatTime(months);
-            
-            // Clear previous results
-            crimesList.innerHTML = '';
-            
-            // Add new results with animation and severity tips
-            crimeCombination.forEach((item, index) => {
-                const crimeDiv = document.createElement('div');
-                crimeDiv.className = 'bg-slate-50 rounded-xl p-4 sm:p-6 border border-slate-200 transition-colors hover:bg-slate-100 animate-slide-in';
-                crimeDiv.style.animationDelay = `${index * 0.1}s`;
-                crimeDiv.setAttribute('role', 'listitem');
-                
-                const sentenceRange = `${formatTime(item.crime.minMonths)} – ${formatTime(item.crime.maxMonths)}`;
-                const targetSentence = formatTime(item.targetPerCrime);
-                
-                crimeDiv.innerHTML = `
-                    <div class="flex flex-col gap-3">
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                            <div class="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
-                                <span class="text-3xl sm:text-4xl flex-shrink-0 mt-1 sm:mt-0" role="img" aria-label="${item.crime.name}">${item.crime.emoji}</span>
-                                <div class="flex-1 min-w-0">
-                                    <h3 class="text-slate-800 font-semibold text-base sm:text-lg leading-tight">${item.crime.name}</h3>
-                                    <p class="text-slate-600 text-xs sm:text-sm mt-1 break-words">
-                                        ${item.count}× po ~${targetSentence} | Zakres kary: ${sentenceRange}
-                                    </p>
-                                    <p class="text-slate-500 text-xs mt-0.5">
-                                        ${item.crime.law} ${item.crime.basis}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="text-left sm:text-right flex-shrink-0 pl-10 sm:pl-0">
-                                <div class="text-blue-600 font-bold text-lg sm:text-xl">${formatTime(item.targetPerCrime * item.count)}</div>
-                                <div class="text-slate-600 text-xs sm:text-sm">razem</div>
-                            </div>
-                        </div>
-                        <div class="bg-blue-50 rounded-lg p-3 text-xs sm:text-sm text-slate-700 border border-blue-200">
-                            ${item.severityTip}
-                        </div>
-                    </div>
-                `;
-                
-                crimesList.appendChild(crimeDiv);
+
+            let total = 0;
+            combination.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'pos';
+                li.style.animationDelay = `${index * 60}ms`;
+                const subtotal = item.targetPerCrime * item.count;
+                total += subtotal;
+                const meta: Array<[string, string]> = [["Zagrożenie", rangeText(item.crime.minMonths, item.crime.maxMonths)]];
+                if (item.count > 1) meta.push(["Liczba czynów", `${item.count}, po ${formatTime(item.targetPerCrime)}`]);
+                li.innerHTML = positionHtml(index, item.crime.name, citation(item.crime.law, item.crime.basis), meta, item.severityTip, formatTime(subtotal));
+                crimesList.appendChild(li);
             });
-            
-            // Show results with animation
-            resultsDiv.classList.remove('hidden');
-            resultsDiv.classList.add('animate-fade-in');
-            
-            // Scroll to results smoothly
-            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const multiple = combination.length > 1;
+            sumRow.hidden = !multiple;
+            sumNote.hidden = !multiple;
+            sumValue.textContent = formatTime(total);
+        }
+
+        calculateBtn.addEventListener('click', () => {
+            render();
+            if (window.matchMedia('(max-width: 860px)').matches) {
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
 
-        // Initialize display
         updateAllInputs(12, 'manual');
+        render();
     </script>
-
-    <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slide-in {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fade-in 0.6s ease-out;
-        }
-
-        .animate-slide-in {
-            animation: slide-in 0.4s ease-out backwards;
-        }
-
-        /* Custom slider styling */
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            background: #1e3a8a;
-            cursor: pointer;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.4);
-            transition: all 0.2s;
-        }
-
-        .slider::-webkit-slider-thumb:hover {
-            background: #1e40af;
-            box-shadow: 0 3px 8px rgba(30, 58, 138, 0.5);
-        }
-
-        .slider::-webkit-slider-thumb:active {
-            background: #1e3a8a;
-            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.6);
-        }
-
-        .slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            background: #1e3a8a;
-            cursor: pointer;
-            border-radius: 50%;
-            border: none;
-            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.4);
-            transition: all 0.2s;
-        }
-
-        .slider::-moz-range-thumb:hover {
-            background: #1e40af;
-            box-shadow: 0 3px 8px rgba(30, 58, 138, 0.5);
-        }
-
-        .slider::-moz-range-thumb:active {
-            background: #1e3a8a;
-            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.6);
-        }
-
-        /* Touch-friendly interactions */
-        @media (hover: none) and (pointer: coarse) {
-            .slider::-webkit-slider-thumb {
-                width: 28px;
-                height: 28px;
-            }
-            .slider::-moz-range-thumb {
-                width: 28px;
-                height: 28px;
-            }
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 640px) {
-            body {
-                -webkit-tap-highlight-color: rgba(30, 58, 138, 0.2);
-            }
-            
-            /* Prevent text overflow */
-            h1, h2, h3 {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                hyphens: auto;
-            }
-
-            /* Better touch targets */
-            button {
-                min-height: 44px;
-            }
-
-            /* Smooth scrolling on mobile */
-            html {
-                scroll-behavior: smooth;
-            }
-        }
-
-        /* Prevent landscape issues on mobile */
-        @media (max-width: 640px) and (orientation: landscape) {
-            .min-h-screen {
-                min-height: auto;
-            }
-        }
-
-        /* Safe area for notched devices */
-        @supports (padding: env(safe-area-inset-left)) {
-            body {
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
-            }
-        }
-    </style>
 </body>
 </html>

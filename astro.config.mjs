@@ -8,7 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // Production config for Cloudflare Pages
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nailedopierdla.pages.dev', // Update with your actual domain
+  site: 'https://nailedopierdla.pl', // Update with your actual domain
   
   adapter: cloudflare({
     mode: 'directory'

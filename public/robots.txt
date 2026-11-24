@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://nailedopierdla.pages.dev/sitemap.xml
+Sitemap: https://nailedopierdla.pl/sitemap.xml
 
 # Block access to unnecessary files
 Disallow: /_astro/
