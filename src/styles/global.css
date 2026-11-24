@@ -1,15 +1,15 @@
 :root {
-    --paper: #f5f3ee;
+    --paper: #f4f5f6;
     --surface: #ffffff;
     --ink: #17191c;
     --ink-2: #3d4147;
     --muted: #6b6f76;
-    --rule: #dcd8cf;
+    --rule: #dfe1e4;
     --rule-strong: #17191c;
     --accent: #7d1d1d;
     --accent-soft: #f3e9e6;
-    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-    --sans: "Source Sans 3", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --serif: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
     color-scheme: light;
 }
 
@@ -75,15 +75,14 @@ h1, h2, h3, p, ol, dl, dd { margin: 0; padding: 0; }
 }
 h1 {
     font-family: var(--serif);
-    font-weight: 600;
-    font-size: clamp(44px, 7vw, 80px);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
     margin-bottom: 24px;
 }
 .lede {
-    font-family: var(--serif);
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.6;
     color: var(--ink-2);
     max-width: 640px;
@@ -181,7 +180,7 @@ h1 {
     font-size: 16px;
     color: var(--ink);
     background: var(--surface);
-    border: 1px solid #b9b4a9;
+    border: 1px solid #b8bcc2;
     border-radius: 2px;
     height: 44px;
     padding: 0 12px;

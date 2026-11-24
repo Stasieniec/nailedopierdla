@@ -4,8 +4,8 @@
   "description": "Kalkulator wymiaru kary",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f3ee",
-  "theme_color": "#f5f3ee",
+  "background_color": "#f4f5f6",
+  "theme_color": "#f4f5f6",
   "lang": "pl",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
