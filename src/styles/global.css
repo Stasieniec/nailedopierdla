@@ -348,9 +348,10 @@ h1 {
 
 /* 404 */
 .notfound {
-    padding: 120px 0 160px;
-    max-width: 640px;
+    padding-top: 120px;
+    padding-bottom: 160px;
 }
+.notfound > * { max-width: 640px; }
 .notfound .lede { margin-bottom: 32px; }
 .button-link {
     display: inline-flex;
